@@ -1,0 +1,464 @@
+EVERLOOM RUN: GITHUB COPILOT INTEGRATION
+
+Use the EVERLOOM Durable Work Protocol for this entire operation.
+
+PRIMARY OBJECTIVE
+
+Upgrade EVERLOOM so that GitHub Copilot can operate as an official execution worker within the EVERLOOM workflow.
+
+EVERLOOM remains the orchestration, continuity, verification, checkpointing, and recovery layer.
+
+GitHub Copilot becomes an execution backend that can perform bounded implementation work inside repositories.
+
+The objective is not merely to document that Copilot can be used.
+
+The objective is to make the EVERLOOM package actually ready for effective use with GitHub Copilot.
+
+---
+
+OPERATING MODEL
+
+Use this hierarchy:
+
+Human
+↓
+EVERLOOM Durable Work Protocol
+↓
+Task Ledger / Objective / Constraints  Bounded Worker Assignment
+↓
+GitHub Copilot
+↓
+Implementation
+↓
+Build / Test / Lint / Verification
+↓
+Commit or Pull Request
+↓
+EVERLOOM Checkpoint
+↓
+Next Task
+
+Copilot is a worker.
+
+EVERLOOM is the durable orchestration protocol.
+
+Do not allow Copilot to redefine the project objective or expand project scope without justification.
+
+---
+
+PHASE 1: INSPECT EXISTING EVERLOOM
+
+Inspect the complete EVERLOOM project before modifying it.
+
+Identify:
+
+- current directory structure
+- protocol documents
+- templates
+- task-ledger mechanisms
+- checkpoint mechanisms
+- verification requirements
+- resume/handoff mechanisms
+- multi-agent support
+- existing GitHub integration
+- existing agent instructions
+- reusable prompts
+- packaging
+- documentation
+
+Do not duplicate functionality that already exists.
+
+Preserve backwards compatibility wherever practical.
+
+---
+
+PHASE 2: DESIGN COPILOT SUPPORT
+
+Determine the smallest clean extension necessary to make EVERLOOM work effectively with GitHub Copilot.
+
+Support appropriate GitHub/Copilot mechanisms including, where useful:
+
+- ".github/copilot-instructions.md"
+- "AGENTS.md"
+- path-specific instructions
+- reusable prompt files
+- agent instructions
+- GitHub Issues
+- pull-request workflows
+- CI verification
+- task assignment
+- repository context
+- build/test/lint commands
+- checkpoint reporting
+
+Prefer native GitHub/Copilot conventions over unnecessary custom machinery.
+
+---
+
+PHASE 3: CREATE REUSABLE COPILOT INSTRUCTIONS
+
+Create a generic Copilot instruction template suitable for repositories using EVERLOOM.
+
+The instructions must tell Copilot to:
+
+1. Read repository instructions before changing anything.
+2. Understand the assigned objective and acceptance criteria.
+3. Inspect relevant existing code before implementation.
+4. Prefer finishing existing work over creating parallel implementations.
+5. Avoid unnecessary architectural expansion.
+6. Keep changes bounded to the assigned task.
+7. Preserve existing functionality unless change is required.
+8. Follow repository coding conventions.
+9. Run appropriate tests.
+10. Run build/typecheck/lint where applicable.
+11. Fix failures caused by its changes.
+12. Never claim completion without verification.
+13. Clearly identify verification that could not be performed.
+14. Record blockers rather than hiding them.
+15. Produce reviewable changes.
+16. Update relevant documentation when behaviour changes.
+17. Preserve provenance when adapting existing work.
+18. Avoid destructive operations unless explicitly authorized.
+19. Leave the repository in a resumable state.
+20. Produce an EVERLOOM-compatible completion/checkpoint report.
+
+---
+
+PHASE 4: CREATE AGENTS.MD SUPPORT
+
+Create a reusable "AGENTS.md" template where appropriate.
+
+It should communicate:
+
+- project objective
+- architecture summary
+- important directories
+- canonical source files
+- coding conventions
+- testing commands
+- build commands
+- validation requirements
+- files/directories that should not be modified casually
+- project-specific constraints
+- definition of done
+- EVERLOOM checkpoint requirements
+
+Keep this concise enough that an agent will actually use it.
+
+Do not turn it into an encyclopedia.
+
+---
+
+PHASE 5: CREATE COPILOT TASK TEMPLATE
+
+Create a reusable bounded-task format.
+
+Example conceptual structure:
+
+EVERLOOM WORKER TASK
+
+Objective
+
+Exactly what must be achieved.
+
+Context
+
+Only information necessary to perform the task.
+
+Relevant Files
+
+Known starting locations.
+
+Constraints
+
+What must not be changed or expanded.
+
+Acceptance Criteria
+
+Observable conditions required for completion.
+
+Verification
+
+Commands/tests/checks that must pass.
+
+Deliverables
+
+Files/code/PR/documentation expected.
+
+Blocker Behaviour
+
+If blocked, record:
+
+- blocker
+- attempted solutions
+- evidence
+- safest next action
+
+Completion Report
+
+Return:
+
+- changes made
+- files changed
+- verification performed
+- results
+- unresolved issues
+- recommended next task
+
+The template must work for implementation, bug fixing, refactoring, testing, documentation, and integration work.
+
+---
+
+PHASE 6: CREATE EVERLOOM ↔ COPILOT HANDOFF
+
+Define a durable handoff format so work can move between:
+
+- ChatGPT
+- GitHub Copilot
+- Grok
+- other coding agents
+- future AI workers
+
+without losing project state.
+
+A handoff must contain enough information for another capable agent to resume without reconstructing the entire conversation.
+
+Include:
+
+- project
+- primary objective
+- current state
+- completed work
+- verification evidence
+- active task
+- remaining tasks
+- blockers
+- important decisions
+- relevant files
+- commands/tests
+- next recommended action
+
+Do not depend on chat history for critical state.
+
+The repository should contain the durable state wherever practical.
+
+---
+
+PHASE 7: VERIFICATION CONTRACT
+
+Create a standard EVERLOOM verification contract for Copilot work.
+
+Completion must distinguish between:
+
+IMPLEMENTED
+Code or artifact exists.
+
+VERIFIED
+Required automated/manual checks passed.
+
+PARTIALLY VERIFIED
+Some checks passed but others could not be performed.
+
+BLOCKED
+A dependency prevents completion.
+
+FAILED
+Implementation or verification failed.
+
+Never treat "code was written" as equivalent to "task completed."
+
+---
+
+PHASE 8: OPERATION FINISH LINE COMPATIBILITY
+
+Ensure the Copilot integration works especially well with completion-oriented operations such as Operation Finish Line.
+
+The worker instructions should reinforce:
+
+Prioritize:
+
+- finished work
+- verified work
+- deployed work
+- published work
+- reusable work
+- revenue-capable work
+- blocker removal
+- reduction of unfinished inventory
+
+Do NOT optimize for:
+
+- starting unnecessary new projects
+- speculative architecture
+- endless research
+- excessive documentation
+- generating alternatives without choosing
+- rewriting working components for aesthetic reasons
+- appearing productive without shipping
+
+When choosing between:
+
+A) improving something already functional
+
+and
+
+B) finishing something required for release
+
+prefer B, unless A is necessary for release.
+
+---
+
+PHASE 9: PACKAGE THE INTEGRATION
+
+Integrate the new capability cleanly into EVERLOOM.
+
+Where appropriate, include reusable artifacts such as:
+
+- Copilot instruction template
+- "AGENTS.md" template
+- worker-task template
+- verification contract
+- checkpoint template
+- handoff/resume template
+- example GitHub configuration
+- documentation explaining how to activate Copilot support
+
+Do not create files merely to increase the size of the package.
+
+Every new artifact must have a practical purpose.
+
+---
+
+PHASE 10: TEST THE WORKFLOW
+
+Do not stop after writing templates.
+
+Perform a realistic simulation or actual repository test.
+
+Take one bounded development task and demonstrate:
+
+EVERLOOM objective
+→ task assignment
+→ Copilot-ready instructions
+→ implementation expectations
+→ verification
+→ checkpoint
+→ resume/next-task packet
+
+Check that another AI could understand the resulting state without access to the original conversation.
+
+Repair weaknesses discovered during this test.
+
+---
+
+PHASE 11: DOCUMENT USAGE
+
+Provide a concise usage guide.
+
+A user should be able to say something equivalent to:
+
+«Use EVERLOOM on this repository and use GitHub Copilot as an implementation worker.»
+
+and have enough supporting infrastructure for the workflow to operate correctly.
+
+Include examples for:
+
+- starting a new EVERLOOM run
+- assigning a bounded Copilot task
+- verifying Copilot output
+- recovering from failure
+- handing the project to another AI
+- resuming work later
+
+---
+
+DURABLE WORK RULES
+
+Throughout this operation:
+
+- Maintain a task ledger.
+- Work continuously through safe and unblocked tasks.
+- Do not stop merely because one phase is complete.
+- Verify artifacts before declaring them finished.
+- Record failures and attempted fixes.
+- Re-plan when evidence shows the current approach is weak.
+- Protect context from unnecessary expansion.
+- Prefer durable repository state over conversational memory.
+- Checkpoint meaningful progress.
+- Keep unfinished work explicit.
+- Never fabricate test results.
+- Never claim deployment, execution, or verification that did not occur.
+
+If something cannot be completed, continue with other unblocked work.
+
+---
+
+DEFINITION OF DONE
+
+This operation is complete only when:
+
+1. EVERLOOM has explicit GitHub Copilot support.
+2. Copilot can receive bounded EVERLOOM worker tasks.
+3. Repository-level Copilot instructions are available.
+4. Agent instructions are available where appropriate.
+5. Verification requirements are explicit.
+6. Completion reports map cleanly into EVERLOOM checkpoints.
+7. Work can be handed between different AI systems.
+8. Critical state does not depend entirely on chat history.
+9. The integration has been tested or realistically validated.
+10. Documentation explains how to use it.
+11. The resulting EVERLOOM package remains generalized and reusable across repositories and projects.
+
+---
+
+FINAL OUTPUT
+
+At the end of the execution, provide an EVERLOOM RESUME PACKET containing:
+
+Objective
+
+What this run attempted to accomplish.
+
+Completed
+
+Everything actually completed.
+
+Verification
+
+Tests/checks performed and their results.
+
+Files Added
+
+New artifacts.
+
+Files Modified
+
+Existing artifacts changed.
+
+Decisions
+
+Important architectural or workflow decisions.
+
+Blockers
+
+Anything preventing further progress.
+
+Remaining Work
+
+Unfinished tasks in priority order.
+
+Recommended Next Action
+
+The single highest-value next action.
+
+Worker Readiness
+
+State whether EVERLOOM is now ready for:
+
+- GitHub Copilot
+- ChatGPT
+- Grok
+- other coding agents
+- cross-agent handoff
+
+Continue working until the integration is genuinely usable, verified as far as the available environment permits, or all remaining work is externally blocked.
