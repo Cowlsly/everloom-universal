@@ -1,0 +1,33 @@
+version: "1.1"
+name: "Example repository cleanup"
+objective: >
+  Audit the repository, remove duplicated implementation paths where safe,
+  verify tests, and leave a resumable handoff for unresolved work.
+success_criteria:
+  - "Duplicate implementation paths are identified"
+  - "Safe consolidations are completed"
+  - "Relevant tests pass"
+  - "Remaining blockers are documented in RESUME.md"
+entry_points:
+  - "README.md"
+  - "src/"
+  - "tests/"
+output_locations:
+  ledger: ".everloom/LEDGER.md"
+  checkpoint: ".everloom/CHECKPOINT.md"
+  discoveries: ".everloom/DISCOVERIES.md"
+  resume_packet: ".everloom/RESUME.md"
+constraints:
+  - "Do not remove public APIs without explicit justification"
+  - "Do not commit credentials"
+verification:
+  - "Run relevant tests"
+  - "Inspect git diff"
+  - "Confirm required documentation updated"
+priority_rules:
+  - "Fix blockers before cosmetic improvements"
+adapters:
+  - "code"
+  - "documentation"
+worker_backends:
+  - "github-copilot"

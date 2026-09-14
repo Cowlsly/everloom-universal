@@ -1,0 +1,52 @@
+name: EVERLOOM Worker Task
+description: Create a bounded implementation task for an AI worker.
+title: "[EVERLOOM] "
+labels: []
+body:
+  - type: textarea
+    id: objective
+    attributes:
+      label: Objective
+      description: Exactly what must be achieved.
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: Only the context necessary to perform the task.
+  - type: textarea
+    id: files
+    attributes:
+      label: Relevant files
+      description: Known starting files or directories.
+  - type: textarea
+    id: constraints
+    attributes:
+      label: Constraints
+      description: What must not be changed, expanded, exposed, or destroyed.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: Observable conditions required for completion.
+    validations:
+      required: true
+  - type: textarea
+    id: verification
+    attributes:
+      label: Verification
+      description: Exact tests, build, lint, typecheck, schema, or other checks required.
+    validations:
+      required: true
+  - type: textarea
+    id: deliverables
+    attributes:
+      label: Deliverables
+      description: Expected code, files, docs, commit, or pull request.
+  - type: markdown
+    attributes:
+      value: |
+        **Worker rule:** return an Everloom completion report using IMPLEMENTED / VERIFIED / PARTIALLY VERIFIED / BLOCKED / FAILED. Do not claim checks that were not performed.

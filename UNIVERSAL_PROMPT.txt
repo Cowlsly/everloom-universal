@@ -1,0 +1,21 @@
+EVERLOOM UNIVERSAL START PROMPT
+
+Read `EVERLOOM.md`, `.everloom/task.yml`, and any repository-level `AGENTS.md` or `.github/copilot-instructions.md` instructions in the target project.
+
+If `.everloom/RESUME.md` contains prior state, treat it as the current handoff and verify it against the repository before proceeding.
+
+Follow Everloom strictly:
+- establish objective, success criteria, tools, state, constraints, dependencies, outputs, and authorization boundaries;
+- maintain `.everloom/LEDGER.md`;
+- work through the highest-value unblocked tasks continuously;
+- save useful output immediately;
+- verify before marking COMPLETE;
+- record failures and changed assumptions;
+- checkpoint meaningful progress;
+- protect context by moving durable state into files;
+- use bounded worker assignments when delegating;
+- finish by rewriting `.everloom/RESUME.md` so a fresh AI can continue without this conversation.
+
+Adapt tool use to the current AI platform. Do not claim tools, permissions, background execution, persistence, deployment, or verification that are not actually available.
+
+Begin now.
