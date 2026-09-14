@@ -1,0 +1,49 @@
+version: "1.1"
+name: "Everloom Universal — GitHub Copilot integration"
+objective: >
+  Make Everloom Universal a complete, vendor-neutral durable work protocol with
+  first-class GitHub Copilot worker support, native GitHub instructions,
+  bounded task handoffs, explicit verification contracts, CI validation, and
+  cross-agent resume state.
+success_criteria:
+  - "Core Everloom protocol files are present at repository root"
+  - "GitHub Copilot receives repository-level instructions"
+  - "A reusable bounded worker task format exists"
+  - "A reusable AGENTS.md template exists"
+  - "Cross-agent handoff and resume requirements are documented"
+  - "Verification states IMPLEMENTED/VERIFIED/PARTIALLY VERIFIED/BLOCKED/FAILED are defined"
+  - "CI validates the Everloom repository structure and task manifest"
+  - "A realistic Copilot worker-task example demonstrates the workflow"
+entry_points:
+  - "README.md"
+  - "EVERLOOM.md"
+  - ".github/copilot-instructions.md"
+  - "AGENTS.md"
+output_locations:
+  ledger: ".everloom/LEDGER.md"
+  checkpoint: ".everloom/CHECKPOINT.md"
+  discoveries: ".everloom/DISCOVERIES.md"
+  resume_packet: ".everloom/RESUME.md"
+constraints:
+  - "Do not expose secrets or credentials"
+  - "Do not perform destructive actions without authorization"
+  - "Preserve vendor neutrality; Copilot is a worker backend, not the orchestrator"
+  - "Prefer native GitHub/Copilot conventions over custom machinery"
+  - "Do not claim verification without objective evidence"
+verification:
+  - "Validate .everloom/task.yml against schemas/task.schema.json"
+  - "Verify all required protocol, template, and GitHub integration files exist"
+  - "Run scripts/validate_everloom.py"
+  - "Run the GitHub Actions Everloom validation workflow"
+priority_rules:
+  - "Finish usable integration before polish"
+  - "Prefer reusable artifacts over repository-specific hacks"
+  - "Keep worker tasks bounded and reviewable"
+adapters:
+  - "code"
+  - "documentation"
+worker_backends:
+  - "github-copilot"
+  - "chatgpt"
+  - "grok"
+  - "other-capable-agents"
