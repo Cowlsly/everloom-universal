@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://everloom.local/schemas/task.schema.json",
+  "title": "Everloom Task Manifest",
+  "type": "object",
+  "required": ["version", "name", "objective", "success_criteria", "output_locations", "constraints", "verification"],
+  "properties": {
+    "version": {"type": "string"},
+    "name": {"type": "string", "minLength": 1},
+    "objective": {"type": "string", "minLength": 1},
+    "success_criteria": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "entry_points": {"type": "array", "items": {"type": "string"}},
+    "output_locations": {
+      "type": "object",
+      "required": ["ledger", "checkpoint", "discoveries", "resume_packet"],
+      "properties": {
+        "ledger": {"type": "string"},
+        "checkpoint": {"type": "string"},
+        "discoveries": {"type": "string"},
+        "resume_packet": {"type": "string"}
+      },
+      "additionalProperties": true
+    },
+    "constraints": {"type": "array", "items": {"type": "string"}},
+    "verification": {"type": "array", "items": {"type": "string"}},
+    "priority_rules": {"type": "array", "items": {"type": "string"}},
+    "adapters": {"type": "array", "items": {"type": "string"}},
+    "worker_backends": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": true
+}
