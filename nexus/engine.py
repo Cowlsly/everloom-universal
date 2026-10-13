@@ -61,7 +61,7 @@ class Engine:
    if not row: return None
    db.execute("UPDATE tasks SET state='ACTIVE',owner=?,lease_until=?,attempt=attempt+1,updated_at=? WHERE id=?",(worker,now+lease_seconds,now,row['id']))
    self.event(db,row['id'],'CLAIMED',{'worker':worker,'attempt':row['attempt']+1})
-   return self.get(row['id'])
+   return dict(db.execute('SELECT * FROM tasks WHERE id=?',(row['id'],)).fetchone())
 
  def heartbeat(self, task_id, worker, lease_seconds=120):
   if lease_seconds<=0: raise ValueError('Invalid lease')
