@@ -47,6 +47,21 @@ jobs:
           grep -q 'Everloom Memory Nexus' /tmp/everloom-apex.html
           grep -q 'Memory should' /tmp/everloom-apex.html
           printf '%s\n' 'PASS: apex HTTPS responds with expected Everloom home'
+      - name: Diagnose HTTPS routing without treating invalid TLS as passing
+        if: always()
+        run: |
+          set +e
+          for target in 'https://cowlsly.website/' 'https://www.cowlsly.website/'; do
+            echo "::group::Diagnostic: $target"
+            curl --insecure --location --silent --show-error --max-time 20 --connect-timeout 10 -o /tmp/diagnostic-site.html -w 'HTTP=%{http_code} final=%{url_effective}\n' "$target"
+            if grep -q 'Memory should' /tmp/diagnostic-site.html; then
+              echo 'DIAGNOSTIC ONLY: expected Everloom page body is available (TLS validity not established)'
+            else
+              echo 'DIAGNOSTIC ONLY: Everloom page body was not found'
+              head -c 250 /tmp/diagnostic-site.html || :
+            fi
+            echo "::endgroup::"
+          done
       - name: Verify www HTTPS canonical redirect
         run: |
           set -eu
