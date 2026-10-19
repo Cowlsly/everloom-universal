@@ -72,5 +72,23 @@
     render();
     status("RESTORED (simulation): integrity-checked seed snapshot loaded in this tab. This is not a production backup drill.");
   });
+
+  // Web Audio is opt-in, synthesized locally and never sent to a network.
+  // Pause ambient playback when the page is hidden; no autoplay or saved state.
+  const AudioCtor = window.AudioContext || window.webkitAudioContext;
+  const fxButton = byId("sound-toggle");
+  const musicButton = byId("music-toggle");
+  let audioCtx=null, effects=false, music=false, ambientTimer=null, noteIndex=0;
+  const context=()=>{if(!AudioCtor)return null; if(!audioCtx)audioCtx=new AudioCtor();if(audioCtx.state==="suspended") audioCtx.resume().catch(()=>{});return audioCtx;};
+  const tone=(freq,duration,volume,shape="sine")=>{const a=context();if(!a)return;const osc=a.createOscillator(),gain=a.createGain(),now=a.currentTime;osc.type=shape;osc.frequency.setValueAtTime(freq,now);gain.gain.setValueAtTime(.0001,now);gain.gain.exponentialRampToValueAtTime(volume,now+.09);gain.gain.exponentialRampToValueAtTime(.0001,now+duration);osc.connect(gain).connect(a.destination);osc.start(now);osc.stop(now+duration+.02);};
+  if(fxButton)fxButton.addEventListener("click",()=>{effects=!effects;fxButton.setAttribute("aria-pressed",String(effects));fxButton.textContent=effects?"♫ Effects on":"♫ Effects off";if(effects)tone(740,.17,.045);});
+  document.addEventListener("click",(ev)=>{if(!effects||ev.target.closest("#sound-toggle"))return;if(ev.target.closest("button, a, summary"))tone(620,.12,.02,"triangle");});
+  const playAmbient=()=>{if(!music||document.hidden)return;const notes=[196,246.94,293.66,246.94,220,261.63,329.63,261.63];tone(notes[noteIndex++%notes.length],2.3,.011);};
+  const stopAmbient=()=>{if(ambientTimer!==null)clearInterval(ambientTimer);ambientTimer=null;};
+  const startAmbient=()=>{stopAmbient();playAmbient();ambientTimer=setInterval(playAmbient,2600);};
+  if(musicButton)musicButton.addEventListener("click",()=>{if(!AudioCtor){musicButton.textContent="Music unavailable";musicButton.disabled=true;return;}music=!music;musicButton.setAttribute("aria-pressed",String(music));musicButton.textContent=music?"♪ Music on":"♪ Music off";music?startAmbient():stopAmbient();});
+  document.addEventListener("visibilitychange",()=>{if(music){document.hidden?stopAmbient():startAmbient();}});
+  window.addEventListener("pagehide",stopAmbient);
+
   render();
 })();

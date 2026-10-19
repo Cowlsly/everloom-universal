@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 860" role="img" aria-labelledby="title desc">
+<title id="title">Everloom Memory Nexus: seven-stage owner-controlled memory workflow</title>
+<desc id="desc">Capture a fact and its source on device, classify it, encrypt private vault data, keep eligible records in local SQLite, authorize scoped grants, send only non-vault records to private PostgreSQL, then audit, correct and restore with the owner in control. The dashed vault line never crosses into ordinary cloud sync.</desc>
+<defs>
+<linearGradient id="bg" x2="1" y2="1"><stop stop-color="#071512"/><stop offset="1" stop-color="#18483b"/></linearGradient>
+<linearGradient id="gold" x2="0" y2="1"><stop stop-color="#fae6b4"/><stop offset="1" stop-color="#c29356"/></linearGradient>
+<linearGradient id="jade" x2="1" y2="1"><stop stop-color="#256d56"/><stop offset="1" stop-color="#13352d"/></linearGradient>
+<filter id="glow"><feGaussianBlur stdDeviation="14"/></filter>
+<marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M1 1L9 5 1 9" stroke="#e4c489" stroke-width="2" fill="none"/></marker></defs>
+<rect width="1100" height="860" rx="32" fill="url(#bg)"/>
+<g fill="none" stroke="#c6a466" opacity=".2"><rect x="22" y="22" width="1056" height="816" rx="22"/><rect x="32" y="32" width="1036" height="796" rx="18"/></g>
+<circle cx="960" cy="110" r="170" fill="#56b991" opacity=".07" filter="url(#glow)"/>
+<text x="74" y="98" fill="#e3c893" font-family="Arial,sans-serif" font-size="20" letter-spacing="7">THE EVERLOOM MEMORY NEXUS</text>
+<text x="74" y="151" fill="#f3f3e7" font-family="Georgia,serif" font-size="48">One memory. Seven guarded steps.</text>
+<text x="74" y="190" fill="#bdd3c7" font-family="Arial,sans-serif" font-size="19">Conceptual architecture · privacy gates are not production certification</text>
+<g stroke="#d4b77a" stroke-width="3" fill="none" marker-end="url(#arrow)"><path d="M318 330 H405"/><path d="M692 330 H778"/><path d="M920 412 V504"/><path d="M770 612 H696"/><path d="M407 612 H320"/><path d="M180 688 V747 H920 V704"/></g>
+<g font-family="Arial,sans-serif">
+<rect x="70" y="245" width="250" height="172" rx="22" fill="url(#jade)" stroke="#8bbda5"/><text x="90" y="285" fill="#e7c993" font-size="17">01 · CAPTURE</text><text x="90" y="327" fill="white" font-size="25" font-weight="bold">Fact + source</text><text x="90" y="360" fill="#d0e0d4" font-size="18">Time, confidence,</text><text x="90" y="387" fill="#d0e0d4" font-size="18">owner + purpose</text>
+<rect x="406" y="245" width="287" height="172" rx="22" fill="url(#jade)" stroke="#8bbda5"/><text x="426" y="285" fill="#e7c993" font-size="17">02 · CLASSIFY</text><text x="426" y="327" fill="white" font-size="25" font-weight="bold">Scope + consent</text><text x="426" y="360" fill="#d0e0d4" font-size="18">General / confidential</text><text x="426" y="387" fill="#d0e0d4" font-size="18">/ private vault</text>
+<rect x="780" y="245" width="250" height="172" rx="22" fill="url(#jade)" stroke="#8bbda5"/><text x="800" y="285" fill="#e7c993" font-size="17">03 · LOCAL</text><text x="800" y="327" fill="white" font-size="25" font-weight="bold">Device SQLite</text><text x="800" y="360" fill="#d0e0d4" font-size="18">Search + offline</text><text x="800" y="387" fill="#d0e0d4" font-size="18">history + outbox</text>
+<rect x="780" y="505" width="250" height="184" rx="22" fill="#243e37" stroke="#e9c68a" stroke-dasharray="8 6"/><text x="800" y="545" fill="#f1c58d" font-size="17">04 · TRUST GATE</text><text x="800" y="589" fill="white" font-size="25" font-weight="bold">Verified grants</text><text x="800" y="622" fill="#d0e0d4" font-size="18">Identity · expiry ·</text><text x="800" y="649" fill="#d0e0d4" font-size="18">minimum permissions</text>
+<rect x="406" y="505" width="287" height="184" rx="22" fill="url(#jade)" stroke="#8bbda5"/><text x="426" y="545" fill="#e7c993" font-size="17">05 · ELIGIBLE SYNC</text><text x="426" y="589" fill="white" font-size="25" font-weight="bold">Private PostgreSQL</text><text x="426" y="622" fill="#d0e0d4" font-size="18">Non-vault records only</text><text x="426" y="649" fill="#d0e0d4" font-size="18">RLS + server receipts</text>
+<rect x="70" y="505" width="250" height="184" rx="22" fill="url(#jade)" stroke="#8bbda5"/><text x="90" y="545" fill="#e7c993" font-size="17">06 · REVIEW</text><text x="90" y="589" fill="white" font-size="25" font-weight="bold">Audit + conflicts</text><text x="90" y="622" fill="#d0e0d4" font-size="18">Preserve both edits</text><text x="90" y="649" fill="#d0e0d4" font-size="18">until owner resolves</text>
+<rect x="70" y="748" width="960" height="52" rx="14" fill="#325946" stroke="#dfc18b"/><text x="95" y="782" fill="white" font-size="20">07 · OWNER CONTROL  •  Correct  •  Revoke  •  Forget  •  Encrypted backup + restore test</text>
+<path d="M555 416 V470 H194 V505" stroke="#edb975" stroke-width="3" stroke-dasharray="8 6" fill="none"/><rect x="275" y="444" width="270" height="40" rx="12" fill="#493b2d"/><text x="290" y="470" fill="#f8daad" font-size="18">PRIVATE VAULT STAYS LOCAL</text>
+</g></svg>

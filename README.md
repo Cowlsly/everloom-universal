@@ -25,3 +25,8 @@ Run `python3 -m http.server 8000` in this directory, open `http://localhost:8000
 This website is an explanatory research prototype, not an authenticated service, an approved vault, a production API, or verified market traction. The status table represents a dated evidence snapshot, and should be updated when release gates pass. The social preview is SVG; compatibility varies across social platforms. Use a reviewed PNG rendition later if needed.
 
 No ongoing subscription or JS package installation is required for these files. Pages eligibility and actual domain delivery must be independently verified.
+
+
+## Expansion update · 19 October 2026
+
+The public website adds a pre-release shop section, opt-in Web Audio effects and ambient notes, Cowslide identity/wallet integration plan (not a functioning login or payment service), Causelight companion link awaiting destination verification, an unlinked Git Gears coming-soon reference, and an illustrated three-diagram gallery at /gallery.html. No payment processing, accounts, secrets, telemetry or unsafe cloud access was enabled. No scripts or audio load from third parties. HTTPS/certificate launch gate remains open until independently verified.
