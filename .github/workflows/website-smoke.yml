@@ -1,0 +1,56 @@
+name: Everloom website HTTPS and source smoke test
+
+on:
+  push:
+    branches: [gh-pages]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: everloom-website-smoke
+  cancel-in-progress: true
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Check site files and JavaScript syntax
+        run: |
+          node --check app.js
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          html=Path('index.html').read_text()
+          js=Path('app.js').read_text()
+          assert Path('CNAME').read_text().strip() == 'cowlsly.website'
+          ids=set(re.findall(r'id="([^"]+)"',html))
+          calls=set(re.findall(r'byId\("([^"]+)"\)',js))
+          anchors=set(re.findall(r'href="#([^"]+)"',html))
+          assert calls <= ids, (calls-ids)
+          assert anchors <= ids, (anchors-ids)
+          assert 'https://cowlsly.website/' in html
+          assert not re.search(r'\bfetch\s*\(|XMLHttpRequest|localStorage|sendBeacon',js)
+          for asset in ['styles.css','app.js','favicon.svg','og-card.svg','robots.txt','sitemap.xml','404.html']:
+              assert Path(asset).is_file(), asset
+          print('PASS: static source, DOM references, links and local-only demo')
+          PY
+      - name: Verify apex HTTPS content and certificate
+        run: |
+          set -eu
+          curl -fsS -L --retry 2 --retry-delay 5 --max-time 30 --connect-timeout 12 -o /tmp/everloom-apex.html https://cowlsly.website/
+          grep -q 'Everloom Memory Nexus' /tmp/everloom-apex.html
+          grep -q 'Memory should' /tmp/everloom-apex.html
+          printf '%s\n' 'PASS: apex HTTPS responds with expected Everloom home'
+      - name: Verify www HTTPS canonical redirect
+        run: |
+          set -eu
+          final="$(curl -fsS -L --retry 2 --retry-delay 5 --max-time 30 --connect-timeout 12 -o /tmp/everloom-www.html -w '%{url_effective}' https://www.cowlsly.website/)"
+          test "$final" = "https://cowlsly.website/" || { echo "::error::Unexpected canonical: $final"; exit 1; }
+          grep -q 'Everloom Memory Nexus' /tmp/everloom-www.html
+          printf '%s\n' 'PASS: www certificate, redirect and canonical content'
