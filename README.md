@@ -30,3 +30,12 @@ No ongoing subscription or JS package installation is required for these files. 
 ## Expansion update · 19 October 2026
 
 The public website adds a pre-release shop section, opt-in Web Audio effects and ambient notes, Cowslide identity/wallet integration plan (not a functioning login or payment service), Causelight companion link awaiting destination verification, an unlinked Git Gears coming-soon reference, and an illustrated three-diagram gallery at /gallery.html. No payment processing, accounts, secrets, telemetry or unsafe cloud access was enabled. No scripts or audio load from third parties. HTTPS/certificate launch gate remains open until independently verified.
+
+## Verified public launch — 20 October 2026
+
+**LIVE, verified from an external GitHub-hosted runner:** https://cowlsly.website/ . The static site and its browser-only synthetic demonstration remain distinct from the unreleased private memory service.
+
+- Strict client-facing TLS validation and expected Everloom content on the apex passed; `www.cowlsly.website` also passed TLS verification, redirects to the apex and serves the correct content. [GitHub Actions smoke run 39300462269](https://github.com/Cowlsly/everloom-universal/actions/runs/39300462269) passed at source commit `f0d61ef8b57bf11e73f33d22ef845b773af7a752`.
+- The [GitHub Pages deployment run 39300461950](https://github.com/Cowlsly/everloom-universal/actions/runs/39300461950) succeeded at that commit.
+- Cloudflare now proxies the four GitHub Pages A records and the `www` CNAME; all seven unrelated DNS records were preserved, including mail-routing/security records. Cloudflare SSL mode is `Full`, **not** `Full (strict)`, so origin certificate identity is not independently attested.
+- Real Samsung browser accessibility/usability and secure production memory-engine authorization remain untested; do not call the engine production-ready.
