@@ -17,13 +17,13 @@
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="fx.css">
 <title>Everloom Memory Nexus | Memory belongs to you</title>
-<script>(function(d){try{if(!location.hash&&!matchMedia("(prefers-reduced-motion: reduce)").matches)d.classList.add("intro-on")}catch(e){}d.classList.add("js")})(document.documentElement)</script>
+<script>(function(d){try{var n=performance.getEntriesByType&&performance.getEntriesByType("navigation")[0],c=navigator.connection,low=(c&&c.saveData)||(navigator.hardwareConcurrency&&navigator.hardwareConcurrency<=2)||(navigator.deviceMemory&&navigator.deviceMemory<=2);if(!location.hash&&!low&&!(n&&(n.type==="reload"||n.type==="back_forward"))&&!matchMedia("(prefers-reduced-motion: reduce)").matches)d.classList.add("intro-on")}catch(e){}d.classList.add("js")})(document.documentElement)</script>
 <script src="app.js" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to main content</a>
 <div class="intro" id="intro" aria-hidden="true">
- <svg class="loom" id="loom" viewBox="-400 -250 2400 1500" preserveAspectRatio="xMidYMid meet" focusable="false">
+ <svg class="loom" id="loom" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-400 -250 2400 1500" preserveAspectRatio="xMidYMid meet" focusable="false">
   <defs>
    <radialGradient id="lg-core" cx="50%" cy="45%" r="55%"><stop offset="0" stop-color="#2b7a63"/><stop offset=".55" stop-color="#14403a"/><stop offset="1" stop-color="#081b19"/></radialGradient>
    <radialGradient id="lg-glow"><stop offset="0" stop-color="#ddc38a" stop-opacity=".55"/><stop offset="1" stop-color="#ddc38a" stop-opacity="0"/></radialGradient>
@@ -41,23 +41,23 @@
    <path class="ring" d="M330 300 Q 560 150 800 170 Q 1040 150 1270 300 Q 1420 500 1270 700 Q 1040 850 800 830 Q 560 850 330 700 Q 180 500 330 300 Z"/>
   </g>
   <g class="pulses">
-   <circle r="7"><animateMotion dur="2.6s" repeatCount="indefinite"><mpath href="#t1"/></animateMotion></circle>
-   <circle r="7"><animateMotion dur="3.1s" begin=".4s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#t2"/></animateMotion></circle>
-   <circle r="7"><animateMotion dur="2.8s" begin=".8s" repeatCount="indefinite"><mpath href="#t3"/></animateMotion></circle>
-   <circle r="7"><animateMotion dur="3.4s" begin=".2s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#t4"/></animateMotion></circle>
-   <circle r="7"><animateMotion dur="2.9s" begin="1s" repeatCount="indefinite"><mpath href="#t5"/></animateMotion></circle>
-   <circle r="7"><animateMotion dur="3.2s" begin=".6s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#t6"/></animateMotion></circle>
+   <circle r="7"><animateMotion dur="2.6s" repeatCount="indefinite"><mpath href="#t1" xlink:href="#t1"/></animateMotion></circle>
+   <circle r="7"><animateMotion dur="3.1s" begin=".4s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#t2" xlink:href="#t2"/></animateMotion></circle>
+   <circle r="7"><animateMotion dur="2.8s" begin=".8s" repeatCount="indefinite"><mpath href="#t3" xlink:href="#t3"/></animateMotion></circle>
+   <circle r="7"><animateMotion dur="3.4s" begin=".2s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#t4" xlink:href="#t4"/></animateMotion></circle>
+   <circle r="7"><animateMotion dur="2.9s" begin="1s" repeatCount="indefinite"><mpath href="#t5" xlink:href="#t5"/></animateMotion></circle>
+   <circle r="7"><animateMotion dur="3.2s" begin=".6s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#t6" xlink:href="#t6"/></animateMotion></circle>
   </g>
   <g class="vault"><rect x="560" y="455" width="120" height="90" rx="16"/><text x="620" y="497">VAULT</text><text class="sub" x="620" y="520">stays local</text></g>
   <g class="core"><circle class="r3" cx="800" cy="500" r="128"/><circle class="r2" cx="800" cy="500" r="98"/><circle class="r1" cx="800" cy="500" r="72" fill="url(#lg-core)"/><text x="800" y="522">✦</text><text class="sub" x="800" y="610">OWNER</text></g>
   <g class="node n-blue" data-node="capture"><rect x="200" y="235" width="260" height="130" rx="20"/><text class="k" x="222" y="270">01 · CAPTURE</text><text class="t" x="222" y="308">Fact + source</text><text class="s" x="222" y="340">time · confidence · purpose</text></g>
   <g class="node n-teal" data-node="verify"><rect x="670" y="105" width="260" height="130" rx="20"/><text class="k" x="692" y="140">02 · VERIFY</text><text class="t" x="692" y="178">Identity gate</text><text class="s" x="692" y="210">server-verified grants</text></g>
   <g class="node n-gold" data-node="remember"><rect x="1140" y="235" width="260" height="130" rx="20"/><text class="k" x="1162" y="270">03 · REMEMBER</text><text class="t" x="1162" y="308">Local SQLite</text><text class="s" x="1162" y="340">FTS5 · scoped recall · audit</text></g>
-  <g class="node n-teal" data-node="retrieve"><rect x="1140" y="635" width="260" height="130" rx="20"/><text class="k" x="1162" y="670">04 · RETRIEVE</text><text class="t" x="1162" y="708">Private PostgreSQL</text><text class="s" x="1162" y="740">RLS · deny by default</text></g>
+  <g class="node n-teal" data-node="retrieve"><rect x="1140" y="635" width="260" height="130" rx="20"/><text class="k" x="1162" y="670">04 · SYNC</text><text class="t" x="1162" y="708">Private PostgreSQL</text><text class="s" x="1162" y="740">RLS · deny by default</text></g>
   <g class="node n-pink" data-node="continue"><rect x="670" y="765" width="260" height="130" rx="20"/><text class="k" x="692" y="800">05 · CONTINUE</text><text class="t" x="692" y="838">Continuity</text><text class="s" x="692" y="870">checkpoints · handoffs</text></g>
   <g class="node n-blue" data-node="agents"><rect x="200" y="635" width="260" height="130" rx="20"/><text class="k" x="222" y="670">06 · AGENTS</text><text class="t" x="222" y="708">Agent interfaces</text><text class="s" x="222" y="740">planned · scoped handoff</text></g>
  </svg>
- <div class="intro-caption" id="intro-caption"><span class="ic-step" id="intro-step">EVERLOOM · MEMORY NEXUS</span><b id="intro-title">A memory that never ends.</b><span id="intro-line">And always answers to its owner.</span></div>
+ <div class="intro-caption" id="intro-caption"><span class="ic-step" id="intro-step">EVERLOOM · RESEARCH PROTOTYPE</span><b id="intro-title">A memory that never ends.</b><span id="intro-line">Designed to answer only to its owner.</span><span class="ic-state" id="intro-state">Research prototype</span></div>
  <p class="intro-note">Concept visualisation of the research prototype</p>
  <button type="button" class="intro-skip" id="intro-skip" tabindex="-1">Skip intro ↵</button>
  <div class="intro-bar"><i id="intro-progress"></i></div>
@@ -88,7 +88,7 @@
 <section class="trustbar"><div class="wrap trust-grid"><span><b>01</b> Local-first storage</span><span><b>02</b> Deny-by-default cloud</span><span><b>03</b> Explicit agent scopes</span><span><b>04</b> Auditable decisions</span></div></section>
 <section class="section structure-section" id="structure" aria-labelledby="structure-title">
  <div class="wrap">
-  <div class="section-heading"><p class="eyebrow">Explore the loom · Concept model</p><h2 id="structure-title">One owner at the centre. <em>Every thread accounted for.</em></h2><p>Everloom imagines an AI agent's memory that never ends. Each fact is captured with its source, checked at an identity gate, kept on the owner's device and shared only through scoped, audited threads. Pick a stage to fly in.</p></div>
+  <div class="section-heading"><p class="eyebrow">Explore the loom · Concept model</p><h2 id="structure-title">One owner at the centre. <em>Every thread accounted for.</em></h2><p>Everloom imagines an AI agent's memory that never ends. Each fact is captured with its source, checked at an identity gate, kept on the owner's device and designed to be shared only through scoped, audited threads. Pick a stage to fly in.</p></div>
   <div class="explorer">
    <div class="explorer-stage" id="explorer-stage"><img src="workflow-overview.svg" alt="Illustrated Everloom workflow: capture, classification, local SQLite, verified identity, non-vault cloud sync, audit and owner control" width="1100" height="860" loading="lazy"></div>
    <div class="explorer-panel">
@@ -96,12 +96,12 @@
      <button type="button" class="step" data-node="capture" aria-pressed="false"><b>01</b> Capture</button>
      <button type="button" class="step" data-node="verify" aria-pressed="false"><b>02</b> Verify</button>
      <button type="button" class="step" data-node="remember" aria-pressed="false"><b>03</b> Remember</button>
-     <button type="button" class="step" data-node="retrieve" aria-pressed="false"><b>04</b> Retrieve</button>
+     <button type="button" class="step" data-node="retrieve" aria-pressed="false"><b>04</b> Sync</button>
      <button type="button" class="step" data-node="continue" aria-pressed="false"><b>05</b> Continue</button>
      <button type="button" class="step" data-node="agents" aria-pressed="false"><b>06</b> Agents</button>
      <button type="button" class="step wide" data-node="all" aria-pressed="true">✦ Whole structure</button>
     </div>
-    <div class="explorer-copy" id="explorer-copy" aria-live="polite"><h3 id="explorer-title">The whole loom</h3><p id="explorer-text">Six stages orbit a single owner. The private vault sits inside the boundary and never takes an ordinary cloud route.</p><p class="explorer-state" id="explorer-state">Concept · design intent, not a production certification</p></div>
+    <div class="explorer-copy" id="explorer-copy" aria-live="polite" aria-atomic="true"><h3 id="explorer-title">The whole loom</h3><p id="explorer-text">Six stages orbit a single owner. The private vault sits inside the boundary and never takes an ordinary cloud route.</p><p class="explorer-state" id="explorer-state">Concept · design intent, not a production certification</p></div>
    </div>
   </div>
  </div>
@@ -194,7 +194,7 @@ forget(id, requested_mode)</code></pre><p>Public documents must never contain pr
 </div></section>
 <section class="endnote"><div class="wrap endnote-grid"><div><p class="eyebrow">Made for the long memory</p><h2>Own your context.<br><em>Keep your future.</em></h2></div><div><p>Everloom Memory Nexus is an independently developed research prototype by Cowlsly. Technical readiness and safety claims require independent evidence.</p><a class="btn secondary" href="#home">Back to top <span aria-hidden="true">↑</span></a></div></div></section>
 </main>
-<footer class="footer"><div class="wrap footer-grid"><div><b>✦ EVERLOOM</b><p>Memory Nexus · By Cowlsly</p></div><div><a href="#security">Privacy principles</a><a href="#status">Development status</a><a href="#faq">FAQ</a><a href="gallery.html">Diagrams</a><a href="#shop">App & shop</a><a href="https://cowslide.online/" rel="noopener noreferrer">Cowslide <span aria-hidden="true">↗</span></a><a href="https://github.com/Cowlsly/everloom-universal/issues" rel="noopener noreferrer">Public project feedback <span aria-hidden="true">↗</span></a></div><div><p>© 2026 Cowlsly. No analytics, cookies, accounts or payment collection on this site. Soft click sounds play only when you press something and can be muted; ambient music stays off until you turn it on.</p><p id="last-updated">Public prototype overview · updated 24 October 2026</p></div></div></footer>
+<footer class="footer"><div class="wrap footer-grid"><div><b>✦ EVERLOOM</b><p>Memory Nexus · By Cowlsly</p></div><div><a href="#security">Privacy principles</a><a href="#status">Development status</a><a href="#faq">FAQ</a><a href="gallery.html">Diagrams</a><a href="#shop">App & shop</a><a href="https://cowslide.online/" rel="noopener noreferrer">Cowslide <span aria-hidden="true">↗</span></a><a href="https://github.com/Cowlsly/everloom-universal/issues" rel="noopener noreferrer">Public project feedback <span aria-hidden="true">↗</span></a></div><div><p>© 2026 Cowlsly. No analytics, cookies, accounts or payment collection on this site. Soft click sounds play only when you press something and can be muted with the ♫ button; ambient music stays off until you turn it on.</p><p id="last-updated">Public prototype overview · updated 24 October 2026</p></div></div></footer>
 <a class="to-top" id="to-top" href="#home" aria-label="Back to top">↑</a>
 </body>
 </html>
