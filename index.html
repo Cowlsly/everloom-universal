@@ -10,21 +10,65 @@
 <meta property="og:description" content="An experimental, local-first memory architecture with verified boundaries and an honest development status.">
 <meta property="og:url" content="https://cowlsly.website/">
 <meta property="og:image" content="https://cowlsly.website/og-card.svg">
+<meta property="og:image:alt" content="Everloom Memory Nexus: an owner core with six memory stages orbiting it">
 <meta name="color-scheme" content="dark light">
 <link rel="canonical" href="https://cowlsly.website/">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="fx.css">
 <title>Everloom Memory Nexus | Memory belongs to you</title>
+<script>(function(d){try{var n=performance.getEntriesByType&&performance.getEntriesByType("navigation")[0],c=navigator.connection,low=(c&&c.saveData)||(navigator.hardwareConcurrency&&navigator.hardwareConcurrency<=2)||(navigator.deviceMemory&&navigator.deviceMemory<=2);if(!location.hash&&!low&&!(n&&(n.type==="reload"||n.type==="back_forward"))&&!matchMedia("(prefers-reduced-motion: reduce)").matches)d.classList.add("intro-on")}catch(e){}d.classList.add("js")})(document.documentElement)</script>
 <script src="app.js" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to main content</a>
+<div class="intro" id="intro" aria-hidden="true">
+ <svg class="loom" id="loom" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-400 -250 2400 1500" preserveAspectRatio="xMidYMid meet" focusable="false">
+  <defs>
+   <radialGradient id="lg-core" cx="50%" cy="45%" r="55%"><stop offset="0" stop-color="#2b7a63"/><stop offset=".55" stop-color="#14403a"/><stop offset="1" stop-color="#081b19"/></radialGradient>
+   <radialGradient id="lg-glow"><stop offset="0" stop-color="#ddc38a" stop-opacity=".55"/><stop offset="1" stop-color="#ddc38a" stop-opacity="0"/></radialGradient>
+   <linearGradient id="lg-thread" x2="1"><stop offset="0" stop-color="#9bdab9"/><stop offset="1" stop-color="#ddc38a"/></linearGradient>
+  </defs>
+  <g class="stars" id="loom-stars"></g>
+  <circle class="halo" cx="800" cy="500" r="430" fill="url(#lg-glow)"/>
+  <g class="threads">
+   <path id="t1" d="M800 500 C 640 420 470 360 330 300"/>
+   <path id="t2" d="M800 500 C 790 380 800 260 800 170"/>
+   <path id="t3" d="M800 500 C 960 420 1130 360 1270 300"/>
+   <path id="t4" d="M800 500 C 960 580 1130 640 1270 700"/>
+   <path id="t5" d="M800 500 C 810 620 800 740 800 830"/>
+   <path id="t6" d="M800 500 C 640 580 470 640 330 700"/>
+   <path class="ring" d="M330 300 Q 560 150 800 170 Q 1040 150 1270 300 Q 1420 500 1270 700 Q 1040 850 800 830 Q 560 850 330 700 Q 180 500 330 300 Z"/>
+  </g>
+  <g class="pulses">
+   <circle r="7"><animateMotion dur="2.6s" repeatCount="indefinite"><mpath href="#t1" xlink:href="#t1"/></animateMotion></circle>
+   <circle r="7"><animateMotion dur="3.1s" begin=".4s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#t2" xlink:href="#t2"/></animateMotion></circle>
+   <circle r="7"><animateMotion dur="2.8s" begin=".8s" repeatCount="indefinite"><mpath href="#t3" xlink:href="#t3"/></animateMotion></circle>
+   <circle r="7"><animateMotion dur="3.4s" begin=".2s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#t4" xlink:href="#t4"/></animateMotion></circle>
+   <circle r="7"><animateMotion dur="2.9s" begin="1s" repeatCount="indefinite"><mpath href="#t5" xlink:href="#t5"/></animateMotion></circle>
+   <circle r="7"><animateMotion dur="3.2s" begin=".6s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#t6" xlink:href="#t6"/></animateMotion></circle>
+  </g>
+  <g class="vault"><rect x="560" y="455" width="120" height="90" rx="16"/><text x="620" y="497">VAULT</text><text class="sub" x="620" y="520">stays local</text></g>
+  <g class="core"><circle class="r3" cx="800" cy="500" r="128"/><circle class="r2" cx="800" cy="500" r="98"/><circle class="r1" cx="800" cy="500" r="72" fill="url(#lg-core)"/><text x="800" y="522">✦</text><text class="sub" x="800" y="610">OWNER</text></g>
+  <g class="node n-blue" data-node="capture"><rect x="200" y="235" width="260" height="130" rx="20"/><text class="k" x="222" y="270">01 · CAPTURE</text><text class="t" x="222" y="308">Fact + source</text><text class="s" x="222" y="340">time · confidence · purpose</text></g>
+  <g class="node n-teal" data-node="verify"><rect x="670" y="105" width="260" height="130" rx="20"/><text class="k" x="692" y="140">02 · VERIFY</text><text class="t" x="692" y="178">Identity gate</text><text class="s" x="692" y="210">server-verified grants</text></g>
+  <g class="node n-gold" data-node="remember"><rect x="1140" y="235" width="260" height="130" rx="20"/><text class="k" x="1162" y="270">03 · REMEMBER</text><text class="t" x="1162" y="308">Local SQLite</text><text class="s" x="1162" y="340">FTS5 · scoped recall · audit</text></g>
+  <g class="node n-teal" data-node="retrieve"><rect x="1140" y="635" width="260" height="130" rx="20"/><text class="k" x="1162" y="670">04 · SYNC</text><text class="t" x="1162" y="708">Private PostgreSQL</text><text class="s" x="1162" y="740">RLS · deny by default</text></g>
+  <g class="node n-pink" data-node="continue"><rect x="670" y="765" width="260" height="130" rx="20"/><text class="k" x="692" y="800">05 · CONTINUE</text><text class="t" x="692" y="838">Continuity</text><text class="s" x="692" y="870">checkpoints · handoffs</text></g>
+  <g class="node n-blue" data-node="agents"><rect x="200" y="635" width="260" height="130" rx="20"/><text class="k" x="222" y="670">06 · AGENTS</text><text class="t" x="222" y="708">Agent interfaces</text><text class="s" x="222" y="740">planned · scoped handoff</text></g>
+ </svg>
+ <div class="intro-caption" id="intro-caption"><span class="ic-step" id="intro-step">EVERLOOM · RESEARCH PROTOTYPE</span><b id="intro-title">A memory that never ends.</b><span id="intro-line">Designed to answer only to its owner.</span><span class="ic-state" id="intro-state">Research prototype</span></div>
+ <p class="intro-note">Concept visualisation of the research prototype</p>
+ <button type="button" class="intro-skip" id="intro-skip" tabindex="-1">Skip intro ↵</button>
+ <div class="intro-bar"><i id="intro-progress"></i></div>
+</div>
+<div class="scroll-progress" aria-hidden="true"><i id="scroll-progress"></i></div>
 <header class="masthead">
  <nav class="nav wrap" aria-label="Main navigation">
    <a class="brand" href="#home" aria-label="Everloom Memory Nexus home"><span class="mark" aria-hidden="true">✦</span><span><b>EVERLOOM</b><small>MEMORY NEXUS</small></span></a>
    <button class="menu-toggle" type="button" aria-controls="nav-links" aria-expanded="false">Menu <span aria-hidden="true">☰</span></button>
-   <div id="nav-links" class="nav-links"><a href="#how">How it works</a><a href="gallery.html">Visual gallery</a><a href="#shop">App & shop</a><a href="#security">Security</a><a href="#demo">Live demo</a><a href="#status">Status</a><a href="#developers">Developers</a></div>
- <div class="audio-controls" role="group" aria-label="Optional site audio"><button type="button" id="sound-toggle" aria-pressed="false" title="Enable button effects">♫ Effects off</button><button type="button" id="music-toggle" aria-pressed="false" title="Enable gentle ambient music">♪ Music off</button></div>
+   <div id="nav-links" class="nav-links"><a href="#structure">Structure</a><a href="#how">How it works</a><a href="gallery.html">Gallery</a><a href="#shop">App & shop</a><a href="#security">Security</a><a href="#demo">Live demo</a><a href="#status">Status</a><a href="#developers">Developers</a></div>
+ <div class="audio-controls" role="group" aria-label="Optional site audio"><button type="button" id="sound-toggle" aria-pressed="true" title="Click sounds"><span class="ico" aria-hidden="true">♫</span><span class="lbl" id="sound-label">Button sounds</span></button><button type="button" id="music-toggle" aria-pressed="false" title="Gentle ambient music"><span class="ico" aria-hidden="true">♪</span><span class="lbl" id="music-label">Ambient music</span></button></div>
  </nav>
 </header>
 <main id="main">
@@ -33,15 +77,35 @@
  <div class="wrap hero-grid">
   <div class="hero-copy">
    <p class="eyebrow"><span class="pulse" aria-hidden="true"></span> Local-first AI continuity · Research prototype</p>
-   <h1 id="hero-title">Memory should <em>belong to you.</em></h1>
+   <h1 id="hero-title">Memory should <em class="shimmer">belong to you.</em></h1>
    <p class="lede">Everloom Memory Nexus explores a future where your AI tools can remember what matters without surrendering ownership, boundaries, or the right to forget.</p>
-   <div class="actions"><a class="btn primary" href="#demo">Explore the safe demo <span aria-hidden="true">↗</span></a><a class="btn secondary" href="gallery.html">See the full workflow ↗</a></div>
+   <div class="actions"><a class="btn primary" href="#demo">Explore the safe demo <span aria-hidden="true">↓</span></a><a class="btn secondary" href="gallery.html">See the full workflow <span aria-hidden="true">→</span></a><button type="button" class="btn ghost replay" id="replay-intro" hidden>▶ Replay the fly-through</button></div>
    <p class="hero-note">Built by Cowlsly. The website is an explanatory prototype, not a hosted memory service. Never submit secrets.</p>
   </div>
-  <figure class="workflow-art"><a href="gallery.html" aria-label="Open the full visual workflow gallery"><img src="workflow-overview.svg" alt="Detailed illustrated Everloom workflow showing capture, classification, local SQLite, verified identity, non-vault cloud sync, audit, and owner control" width="1100" height="860"></a><figcaption>Seven guarded steps · <a href="gallery.html">View the full-size diagrams ↗</a></figcaption></figure>
+  <figure class="workflow-art"><a href="gallery.html"><img src="workflow-overview.svg" alt="Detailed illustrated Everloom workflow showing capture, classification, local SQLite, verified identity, non-vault cloud sync, audit, and owner control" width="1100" height="860"></a><figcaption>Seven guarded steps · <a href="gallery.html">View the full-size diagrams <span aria-hidden="true">→</span></a></figcaption></figure>
  </div>
 </section>
 <section class="trustbar"><div class="wrap trust-grid"><span><b>01</b> Local-first storage</span><span><b>02</b> Deny-by-default cloud</span><span><b>03</b> Explicit agent scopes</span><span><b>04</b> Auditable decisions</span></div></section>
+<section class="section structure-section" id="structure" aria-labelledby="structure-title">
+ <div class="wrap">
+  <div class="section-heading"><p class="eyebrow">Explore the loom · Concept model</p><h2 id="structure-title">One owner at the centre. <em>Every thread accounted for.</em></h2><p>Everloom imagines an AI agent's memory that never ends. Each fact is captured with its source, checked at an identity gate, kept on the owner's device and designed to be shared only through scoped, audited threads. Pick a stage to fly in.</p></div>
+  <div class="explorer">
+   <div class="explorer-stage" id="explorer-stage"><img src="workflow-overview.svg" alt="Illustrated Everloom workflow: capture, classification, local SQLite, verified identity, non-vault cloud sync, audit and owner control" width="1100" height="860" loading="lazy"></div>
+   <div class="explorer-panel">
+    <div class="explorer-steps" role="group" aria-label="Structure stages">
+     <button type="button" class="step" data-node="capture" aria-pressed="false"><b>01</b> Capture</button>
+     <button type="button" class="step" data-node="verify" aria-pressed="false"><b>02</b> Verify</button>
+     <button type="button" class="step" data-node="remember" aria-pressed="false"><b>03</b> Remember</button>
+     <button type="button" class="step" data-node="retrieve" aria-pressed="false"><b>04</b> Sync</button>
+     <button type="button" class="step" data-node="continue" aria-pressed="false"><b>05</b> Continue</button>
+     <button type="button" class="step" data-node="agents" aria-pressed="false"><b>06</b> Agents</button>
+     <button type="button" class="step wide" data-node="all" aria-pressed="true">✦ Whole structure</button>
+    </div>
+    <div class="explorer-copy" id="explorer-copy" aria-live="polite" aria-atomic="true"><h3 id="explorer-title">The whole loom</h3><p id="explorer-text">Six stages orbit a single owner. The private vault sits inside the boundary and never takes an ordinary cloud route.</p><p class="explorer-state" id="explorer-state">Concept · design intent, not a production certification</p></div>
+   </div>
+  </div>
+ </div>
+</section>
 <section class="section" id="how">
  <div class="wrap"><div class="section-heading"><p class="eyebrow">A memory with a constitution</p><h2>Continuity, with boundaries.</h2><p>Everloom is designed around consent, provenance and an owner's final say. These are design principles. Their enforcement varies by implementation stage.</p></div>
   <div class="cards three">
@@ -67,15 +131,15 @@
 </section>
 <section class="section shop-section" id="shop" aria-labelledby="shop-title"><div class="wrap">
 <div class="section-heading"><p class="eyebrow">Everloom · Product and storefront</p><h2 id="shop-title">A home for the app.</h2><p>Explore the working research demonstration and follow development of the future downloadable Everloom application. There is no chargeable product or enabled checkout until security, release packaging, prices and support are verified.</p></div>
-<div class="cards three shop-cards"><article class="tile"><span class="tile-icon">01</span><h3>Everloom for Android</h3><p>Local-first memory for phones, beginning with a Termux proof of concept. Not ready for general installation or sale.</p><p class="product-state">Pre-release · Price not set</p><a class="btn secondary" href="#status">See release progress ↗</a></article>
-<article class="tile"><span class="tile-icon">02</span><h3>Desktop & developer tools</h3><p>Planned multi-device memory interfaces, portable backups, APIs and integration kits. Availability awaits completed acceptance tests.</p><p class="product-state">In development · No checkout</p><a class="btn secondary" href="#developers">View the approach ↗</a></article>
-<article class="tile"><span class="tile-icon">03</span><h3>Live browser demonstration</h3><p>Use a fictional, zero-account example now. It does not touch a real account, financial wallet or memory database.</p><p class="product-state">Free demo · Available here</p><a class="btn primary" href="#demo">Try the safe demo ↗</a></article></div>
-<div class="integration-note"><h3>Cowslide identity and wallet</h3><p>Planned: sign in with a verified Cowslide.online account, show only the account name and profile image in Everloom’s header, and offer Slide Wallet at checkout where a legitimate payable product exists. <strong>Not connected yet.</strong> No password collection, wallet token storage or payments operate on this static website.</p><a class="text-link" href="https://cowslide.online/" target="_blank" rel="noopener noreferrer">Visit Cowslide.online ↗</a></div>
+<div class="cards three shop-cards"><article class="tile"><span class="tile-icon">01</span><h3>Everloom for Android</h3><p>Local-first memory for phones, beginning with a Termux proof of concept. Not ready for general installation or sale.</p><p class="product-state">Pre-release · Price not set</p><a class="btn secondary" href="#status">See release progress <span aria-hidden="true">↓</span></a></article>
+<article class="tile"><span class="tile-icon">02</span><h3>Desktop & developer tools</h3><p>Planned multi-device memory interfaces, portable backups, APIs and integration kits. Availability awaits completed acceptance tests.</p><p class="product-state">In development · No checkout</p><a class="btn secondary" href="#developers">View the approach <span aria-hidden="true">↓</span></a></article>
+<article class="tile"><span class="tile-icon">03</span><h3>Live browser demonstration</h3><p>Use a fictional, zero-account example now. It does not touch a real account, financial wallet or memory database.</p><p class="product-state">Free demo · Available here</p><a class="btn primary" href="#demo">Try the safe demo <span aria-hidden="true">↑</span></a></article></div>
+<div class="integration-note"><h3>Cowslide identity and wallet</h3><p>Planned: sign in with a verified Cowslide.online account, show only the account name and profile image in Everloom’s header, and offer Slide Wallet at checkout where a legitimate payable product exists. <strong>Not connected yet.</strong> No password collection, wallet token storage or payments operate on this static website.</p><a class="text-link" href="https://cowslide.online/" target="_blank" rel="noopener noreferrer">Visit Cowslide.online <span aria-hidden="true">↗</span></a></div>
 </div></section>
-<section class="section gallery-teaser" id="visuals"><div class="wrap split"><div><p class="eyebrow">Explore the machinery</p><h2>See how memory travels.</h2><p class="section-copy">A visual guide to capture, privacy boundaries, owner permissions, conflict handling and safe restore. Each diagram opens at full resolution.</p><a class="btn primary" href="gallery.html">Open the illustrated gallery ↗</a></div><a class="visual-tile" href="gallery.html" aria-label="Explore visual diagrams"><img src="trust-boundaries.svg" alt="Diagram separating local device, identity gate and private cloud, with a blocked vault pathway" loading="lazy" width="1000" height="620"></a></div></section>
-<section class="section partners" id="partners"><div class="wrap"><div class="section-heading"><p class="eyebrow">The wider Cowlsly ecosystem</p><h2>Connected worlds, separate responsibilities.</h2></div><div class="partner-links"><a href="https://cowslide.online/" rel="noopener noreferrer" target="_blank"><b>Cowslide.online ↗</b><span>Identity and planned Slide Wallet connection. Integration not yet verified.</span></a><a href="https://causelight.online/" rel="noopener noreferrer" target="_blank"><b>Causelight.online ↗</b><span>Requested companion link. Destination and branding pending independent verification.</span></a><div><b>Git Gears</b><span>Future storefront. Public address not verified, so no link is invented.</span></div></div></div></section>
+<section class="section gallery-teaser" id="visuals"><div class="wrap split"><div><p class="eyebrow">Explore the machinery</p><h2>See how memory travels.</h2><p class="section-copy">A visual guide to capture, privacy boundaries, owner permissions, conflict handling and safe restore. Each diagram opens at full resolution.</p><a class="btn primary" href="gallery.html">Open the illustrated gallery <span aria-hidden="true">→</span></a></div><a class="visual-tile" href="gallery.html"><img src="trust-boundaries.svg" alt="Diagram separating local device, identity gate and private cloud, with a blocked vault pathway" loading="lazy" width="1000" height="620"></a></div></section>
+<section class="section partners" id="partners"><div class="wrap"><div class="section-heading"><p class="eyebrow">The wider Cowlsly ecosystem</p><h2>Connected worlds, separate responsibilities.</h2></div><div class="partner-links"><a href="https://cowslide.online/" rel="noopener noreferrer" target="_blank"><b>Cowslide.online <span aria-hidden="true">↗</span></b><span>Identity and planned Slide Wallet connection. Integration not yet verified.</span></a><a href="https://causelight.online/" rel="noopener noreferrer" target="_blank"><b>Causelight.online <span aria-hidden="true">↗</span></b><span>Requested companion link. Destination and branding pending independent verification.</span></a><div><b>Git Gears</b><span>Future storefront. Public address not verified, so no link is invented.</span></div></div></div></section>
 <section class="section" id="security">
- <div class="wrap split"><div><p class="eyebrow">Privacy by design, not a slogan</p><h2>Protected by the rules <em>you can see.</em></h2><p class="section-copy">The original code and the cloud's existing permissions are not the same thing as a verified production service. Everloom's release gates demand genuinely restricted-identity tests and a proven restore drill.</p><a class="text-link" href="#status">See the honest status matrix <span aria-hidden="true">↗</span></a></div>
+ <div class="wrap split"><div><p class="eyebrow">Privacy by design, not a slogan</p><h2>Protected by the rules <em>you can see.</em></h2><p class="section-copy">The original code and the cloud's existing permissions are not the same thing as a verified production service. Everloom's release gates demand genuinely restricted-identity tests and a proven restore drill.</p><a class="text-link" href="#status">See the honest status matrix <span aria-hidden="true">↓</span></a></div>
  <div class="security-list">
  <div><span class="check-icon">✓</span><div><h3>Owner boundaries first</h3><p>No trusting a caller's claimed owner ID or classification level.</p></div></div>
  <div><span class="check-icon">✓</span><div><h3>Vault stays apart</h3><p>No automatic private-vault sharing or browser exposure.</p></div></div>
@@ -91,7 +155,7 @@
   <div class="demo-editor"><label for="fact">Add a harmless fictional fact</label><div class="field-group"><input id="fact" type="text" maxlength="160" autocomplete="off" placeholder="Example: The teal compass points north"><button type="button" id="remember" class="btn primary">Remember</button></div>
   <label for="filter">Search your example memories</label><input id="filter" type="search" placeholder="Search synthetic memories" autocomplete="off">
   <div class="demo-toolbar"><button type="button" id="handoff">Authorized handoff</button><button type="button" id="deny">Deny other owner</button><button type="button" id="conflict">Show edit conflict</button><button type="button" id="restore">Restore demo backup</button></div></div>
-  <div class="demo-output"><div class="output-title"><h3>Memory records</h3><span id="count">2 synthetic records</span></div><ul id="records" class="records"></ul><p id="event" class="event" role="status" aria-live="polite">Sandbox ready. Nothing leaves this page.</p></div>
+  <div class="demo-output"><div class="output-title"><h3>Memory records</h3><span id="count">2 synthetic records</span></div><ul id="records" class="records"></ul><noscript><p class="event">The demo needs JavaScript. Everything else on this page works without it.</p></noscript><p id="event" class="event" role="status" aria-live="polite">Sandbox ready. Nothing leaves this page.</p></div>
  </div>
 </div>
 <p class="demo-disclaimer">The demo illustrates design behavior only. It is not connected to Everloom servers, authentication or the production database.</p>
@@ -99,7 +163,7 @@
 </section>
 <section class="section status-section" id="status">
 <div class="wrap"><div class="section-heading"><p class="eyebrow">Evidence over promises</p><h2>A transparent build status.</h2><p>Snapshot: 19 October 2026. “Implemented” means code exists, not that a production release is approved.</p></div>
-<div class="table-scroll"><table><caption>Everloom development status as evidenced or conservatively qualified</caption><thead><tr><th scope="col">Capability</th><th scope="col">Classification</th><th scope="col">What that actually means</th></tr></thead><tbody>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Development status table (scrolls sideways)"><table><caption>Everloom development status as evidenced or conservatively qualified</caption><thead><tr><th scope="col">Capability</th><th scope="col">Classification</th><th scope="col">What that actually means</th></tr></thead><tbody>
 <tr><th scope="row">Local SQLite memory, search and audit</th><td><span class="status implemented">Prototype exists</span></td><td>Code and historical tests; current integrated release testing pending.</td></tr>
 <tr><th scope="row">Cloud identity and private RLS foundation</th><td><span class="status foundation">Deployed foundation</span></td><td>Free-tier private project; advisor checks have shown no findings, not an end-to-end approval.</td></tr>
 <tr><th scope="row">Production-secure agent sync</th><td><span class="status pending">Unverified</span></td><td>Restricted agent, recovery and cross-owner acceptance gates remain.</td></tr>
@@ -128,8 +192,9 @@ forget(id, requested_mode)</code></pre><p>Public documents must never contain pr
 <details><summary>Does Everloom make an AI permanently conscious or continuously connected?</summary><p>No. It is software for bounded memory records and task handoff, not an always-on consciousness or a magical connection between providers.</p></details>
 <details><summary>Where does my data ultimately belong?</summary><p>The design goal is to keep the owner in control of storage, permissions, export and deletion. Complete production guarantees still require testing.</p></details>
 </div></section>
-<section class="endnote"><div class="wrap endnote-grid"><div><p class="eyebrow">Made for the long memory</p><h2>Own your context.<br><em>Keep your future.</em></h2></div><div><p>Everloom Memory Nexus is an independently developed research prototype by Cowlsly. Technical readiness and safety claims require independent evidence.</p><a class="btn secondary" href="#home">Back to top ↑</a></div></div></section>
+<section class="endnote"><div class="wrap endnote-grid"><div><p class="eyebrow">Made for the long memory</p><h2>Own your context.<br><em>Keep your future.</em></h2></div><div><p>Everloom Memory Nexus is an independently developed research prototype by Cowlsly. Technical readiness and safety claims require independent evidence.</p><a class="btn secondary" href="#home">Back to top <span aria-hidden="true">↑</span></a></div></div></section>
 </main>
-<footer class="footer"><div class="wrap footer-grid"><div><b>✦ EVERLOOM</b><p>Memory Nexus · By Cowlsly</p></div><div><a href="#security">Privacy principles</a><a href="#status">Development status</a><a href="#faq">FAQ</a><a href="gallery.html">Diagrams</a><a href="#shop">App & shop</a><a href="https://cowslide.online/" rel="noopener noreferrer">Cowslide ↗</a><a href="https://github.com/Cowlsly/everloom-universal/issues" rel="noopener noreferrer">Public project feedback ↗</a></div><div><p>© 2026 Cowlsly. No analytics, cookies, accounts or payment collection on this site. Audio is off until you enable it.</p><p id="last-updated">Public prototype overview · 19 October 2026</p></div></div></footer>
+<footer class="footer"><div class="wrap footer-grid"><div><b>✦ EVERLOOM</b><p>Memory Nexus · By Cowlsly</p></div><div><a href="#security">Privacy principles</a><a href="#status">Development status</a><a href="#faq">FAQ</a><a href="gallery.html">Diagrams</a><a href="#shop">App & shop</a><a href="https://cowslide.online/" rel="noopener noreferrer">Cowslide <span aria-hidden="true">↗</span></a><a href="https://github.com/Cowlsly/everloom-universal/issues" rel="noopener noreferrer">Public project feedback <span aria-hidden="true">↗</span></a></div><div><p>© 2026 Cowlsly. No analytics, cookies, accounts or payment collection on this site. Soft click sounds play only when you press something and can be muted with the ♫ button; ambient music stays off until you turn it on.</p><p id="last-updated">Public prototype overview · updated 24 October 2026</p></div></div></footer>
+<a class="to-top" id="to-top" href="#home" aria-label="Back to top">↑</a>
 </body>
 </html>
