@@ -53,7 +53,13 @@
     reveal: () => { whoosh(0.06, 0.7); [392, 587.33, 783.99, 1174.66].forEach((f, i) => tone(f, 0.6, 0.03, "sine", 0.1 + i * 0.09)); },
     node: () => { tone(880, 0.08, 0.03, "sine"); tone(1320, 0.16, 0.025, "sine", 0.04); }
   };
-  const play = (name) => { if (effects && sfx[name]) { try { sfx[name](); } catch (e) { /* audio is optional */ } } };
+  // Only ever sound in direct response to the visitor's own press (never on Escape or a timer).
+  const play = (name) => {
+    if (!effects || !sfx[name]) return;
+    const ua = navigator.userActivation;
+    if (ua && !ua.isActive) return;
+    try { sfx[name](); } catch (e) { /* audio is optional */ }
+  };
   const buzz = () => { if (effects && navigator.vibrate) { try { navigator.vibrate(8); } catch (e) { /* optional */ } } };
 
   const fxButton = byId("sound-toggle"), fxLabel = byId("sound-label");
@@ -83,6 +89,7 @@
   });
   document.addEventListener("visibilitychange", () => { if (music) { document.hidden ? stopAmbient() : startAmbient(); } });
   window.addEventListener("pagehide", stopAmbient);
+  window.addEventListener("pageshow", (ev) => { if (ev.persisted && music) { music = false; musicButton.setAttribute("aria-pressed", "false"); } });
   if (!AudioCtor) { fxButton.disabled = true; fxLabel.textContent = "Sounds unavailable"; effects = false; }
 
   /* ---------------- Press states, ripples and click sounds ---------------- */
@@ -107,11 +114,11 @@
       el.append(dot);
       dot.addEventListener("animationend", () => dot.remove(), { once: true });
     }
-    buzz();
   }, { passive: true });
   document.addEventListener("click", (ev) => {
     const el = ev.target.closest(PRESSABLE);
     if (!el || el.disabled) return;
+    buzz();
     const s = soundFor(el); if (s) play(s);
   });
   // Keyboard users get the same visible press state.
@@ -131,7 +138,7 @@
   menu.addEventListener("click", () => setMenu(menu.getAttribute("aria-expanded") !== "true"));
   nav.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => setMenu(false)));
   document.addEventListener("keydown", (ev) => { if (ev.key === "Escape" && nav.classList.contains("open")) { setMenu(false); menu.focus(); } });
-  document.addEventListener("click", (ev) => { if (nav.classList.contains("open") && !ev.target.closest(".nav")) setMenu(false); });
+  document.addEventListener("pointerdown", (ev) => { if (nav.classList.contains("open") && !ev.target.closest(".nav")) setMenu(false); }, { passive: true });
 
   // Scroll progress, sticky header state, back-to-top, scroll-spy.
   const bar = byId("scroll-progress");
@@ -158,7 +165,13 @@
   if (!reduceMotion && "IntersectionObserver" in window) {
     const targets = document.querySelectorAll(".section-heading, .tile, .arch-node, .arch-arrow, .boundary, .security-list > div, .roadmap li, .partner-links > *, .demo-shell, .table-scroll, .code-panel, .explorer, .faq-section details, .endnote-grid > *, .integration-note, .visual-tile, .trust-grid span");
     const io = new IntersectionObserver((entries) => {
-      entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        const el = e.target; el.classList.add("in"); io.unobserve(el);
+        // Hand the element back to its own hover/transition rules once revealed.
+        const done = (t) => { if (t.target !== el || t.propertyName !== "opacity") return; el.classList.remove("rv", "in"); el.style.removeProperty("--d"); el.removeEventListener("transitionend", done); };
+        el.addEventListener("transitionend", done);
+      });
     }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
     targets.forEach((el) => {
       const sibs = el.parentElement ? Array.prototype.indexOf.call(el.parentElement.children, el) : 0;
@@ -186,20 +199,21 @@
 
   /* ---------------- The loom: camera + intro fly-through ---------------- */
   const NODES = {
-    all: { box: [-120, -10, 1840, 1020], step: "EVERLOOM · MEMORY NEXUS", title: "A memory that never ends.", line: "And always answers to its owner.",
+    all: { box: [-120, -10, 1840, 1020], step: "EVERLOOM · RESEARCH PROTOTYPE", title: "A memory that never ends.", line: "Designed to answer only to its owner.", chip: "Research prototype",
       head: "The whole loom", text: "Six stages orbit a single owner. The private vault sits inside the boundary and never takes an ordinary cloud route.", state: "Concept · design intent, not a production certification" },
-    capture: { box: [30, 130, 600, 440], step: "01 · CAPTURE", title: "Every fact keeps its source.", line: "Time, confidence and purpose travel with it.",
-      head: "01 · Capture with context", text: "A memory is recorded with where it came from, when, how sure we are and why it was kept, so guesses never quietly become history.", state: "Prototype: local SQLite records with provenance" },
-    verify: { box: [500, 0, 600, 440], step: "02 · VERIFY", title: "Nothing crosses unchecked.", line: "An identity gate verifies every grant server-side.",
-      head: "02 · Verify at the gate", text: "Agents never vouch for themselves. Owner and classification are bound by the server, and a mismatch is denied by default.", state: "Design principle · production identity tests pending" },
-    remember: { box: [970, 130, 600, 440], step: "03 · REMEMBER", title: "Your device is home.", line: "Local SQLite: full-text recall, scopes, audit.",
-      head: "03 · Remember locally", text: "The owner's device is the centre of gravity: offline search, per-agent scopes and an audit trail of every action.", state: "Prototype exists · historical tests pass" },
-    retrieve: { box: [970, 530, 600, 440], step: "04 · RETRIEVE", title: "The cloud is a guarded annexe.", line: "Private PostgreSQL with row-level security, deny by default.",
-      head: "04 · Retrieve through the boundary", text: "Non-vault records may sync to a private database with forced row-level security. Nothing is public, and nothing syncs without a verified grant.", state: "Deployed foundation · end-to-end sync not yet approved" },
-    continue: { box: [500, 660, 600, 440], step: "05 · CONTINUE", title: "Pick up where you left off.", line: "Checkpoints and handoffs carry context forward.",
-      head: "05 · Continue across sessions", text: "Session checkpoints and portable handoffs let work resume without starting from zero, whichever tool picks it up next.", state: "Prototype session hooks · in development" },
-    agents: { box: [30, 530, 600, 440], step: "06 · AGENTS", title: "Many agents. One memory.", line: "Each sees only the smallest useful context.",
-      head: "06 · Share with agents", text: "Planned agent interfaces receive scoped, expiring grants and nothing more. The vault is never part of a routine handoff.", state: "Planned · adapters remain unverified" }
+    capture: { box: [30, 130, 600, 440], step: "01 · CAPTURE", title: "Every fact carries its source.", line: "When, how sure, and why it was kept.", chip: "Prototype",
+      head: "01 · Capture with context", text: "A memory is recorded with where it came from, when, how sure we are and why it was kept, so guesses never quietly become history.", state: "Prototype · local SQLite records with provenance" },
+    verify: { box: [500, 0, 600, 440], step: "02 · VERIFY", title: "Agents never vouch for themselves.", line: "The server checks every grant. A mismatch means no.", chip: "Design principle",
+      head: "02 · Verify at the gate", text: "Owner and classification are bound by the server, never by what an agent claims, and a mismatch is denied by default.", state: "Design principle · production identity tests pending" },
+    remember: { box: [970, 130, 600, 440], step: "03 · REMEMBER", title: "Your device is home.", line: "Search, scopes and an audit trail, offline.", chip: "Prototype",
+      head: "03 · Remember locally", text: "The owner's device is the centre of gravity: offline search, per-agent scopes and an audit trail of every action.", state: "Prototype · historical tests; current release testing pending" },
+    retrieve: { box: [970, 530, 600, 440], step: "04 · SYNC", title: "The cloud gets only what you allow.", line: "A private database, locked down by default.", chip: "Deployed foundation",
+      head: "04 · Sync through the boundary", text: "Non-vault records may sync to a private database with forced row-level security. Nothing is public, and nothing syncs without a verified grant.", state: "Deployed foundation · end-to-end sync not yet approved" },
+    continue: { box: [500, 660, 600, 440], step: "05 · CONTINUE", title: "Pick up where you left off.", line: "Checkpoints and handoffs carry context forward.", chip: "Planned",
+      head: "05 · Continue across sessions", text: "Session checkpoints and portable handoffs are designed to let work resume without starting from zero, whichever tool picks it up next.", state: "Planned · session hooks in development" },
+    agents: { box: [30, 530, 600, 440], step: "06 · AGENTS", title: "Many agents. One memory. Your rules.", line: "Each sees only what it needs.", chip: "Planned",
+      head: "06 · Share with agents", text: "Planned agent interfaces receive scoped, expiring grants and nothing more. The vault is never part of a routine handoff.", state: "Planned · adapters remain unverified" },
+    close: { box: [-120, -10, 1840, 1020], step: "EVERLOOM · MEMORY NEXUS", title: "Prototype today. Built in the open.", line: "Every claim has a status. Try the safe demo.", chip: "Research prototype" }
   };
   const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
   const makeCamera = (svg) => {
@@ -239,13 +253,25 @@
   clone.querySelectorAll("[fill^='url(#'], [stroke^='url(#']").forEach((n) => {
     ["fill", "stroke"].forEach((a) => { const v = n.getAttribute(a); if (v && v.startsWith("url(#")) n.setAttribute(a, v.replace(/\)$/, "-x)")); });
   });
-  clone.querySelectorAll("mpath").forEach((m) => m.setAttribute("href", m.getAttribute("href") + "-x"));
+  clone.querySelectorAll("mpath").forEach((m) => { const h = m.getAttribute("href") + "-x"; m.setAttribute("href", h); m.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", h); });
   clone.setAttribute("viewBox", NODES.all.box.join(" "));
   clone.setAttribute("role", "img");
   clone.setAttribute("aria-label", "Everloom structure: an owner core surrounded by capture, verify, remember, retrieve, continue and agent stages, with a private vault kept local");
   clone.querySelectorAll(".node, .threads path").forEach((n) => { n.style.animation = "none"; n.style.opacity = "1"; n.style.strokeDashoffset = "0"; });
   stage.replaceChildren(clone);
-  if (reduceMotion && clone.pauseAnimations) clone.pauseAnimations();
+  // Ambient motion in the explorer runs only while it is on screen, and settles after a few seconds (WCAG 2.2.2).
+  let settleTimer = 0;
+  const setMotion = (on) => {
+    stage.classList.toggle("paused", !on);
+    if (clone.pauseAnimations) on ? clone.unpauseAnimations() : clone.pauseAnimations();
+  };
+  setMotion(false);
+  if (!reduceMotion && "IntersectionObserver" in window) {
+    new IntersectionObserver((entries) => entries.forEach((e) => {
+      clearTimeout(settleTimer);
+      if (e.isIntersecting) { setMotion(true); settleTimer = setTimeout(() => setMotion(false), 6000); } else setMotion(false);
+    }), { threshold: 0.2 }).observe(stage);
+  }
   const exCam = makeCamera(clone);
   const steps = document.querySelectorAll(".explorer .step");
   const exCopy = byId("explorer-copy");
@@ -256,6 +282,7 @@
     byId("explorer-title").textContent = n.head; byId("explorer-text").textContent = n.text; byId("explorer-state").textContent = n.state;
     exCopy.classList.remove("swap"); void exCopy.offsetWidth; exCopy.classList.add("swap");
     if (withSound) play(key === "all" ? "toggle" : "node");
+    if (!reduceMotion) { clearTimeout(settleTimer); setMotion(true); settleTimer = setTimeout(() => setMotion(false), 6000); }
   };
   steps.forEach((b) => b.addEventListener("click", () => selectNode(b.dataset.node, true)));
   clone.querySelectorAll(".node").forEach((g) => g.addEventListener("click", () => selectNode(g.dataset.node, true)));
@@ -265,14 +292,15 @@
   const cam = makeCamera(loom);
   const cap = byId("intro-caption"), prog = byId("intro-progress");
   const SEQ = ["capture", "verify", "remember", "retrieve", "continue", "agents"];
-  let timers = [], running = false;
+  let timers = [], running = false, replaying = false;
   const caption = (n) => {
-    byId("intro-step").textContent = n.step; byId("intro-title").textContent = n.title; byId("intro-line").textContent = n.line;
+    byId("intro-step").textContent = n.step; byId("intro-title").textContent = n.title; byId("intro-line").textContent = n.line; byId("intro-state").textContent = n.chip;
     cap.classList.remove("swap"); void cap.offsetWidth; cap.classList.add("swap");
   };
   const endIntro = (withSound) => {
     if (!running) return;
     running = false; timers.forEach(clearTimeout); timers = [];
+    if (scrollY > 0 && !replaying) scrollTo(0, 0);
     if (withSound) play("reveal");
     cam.to([700, 400, 200, 200], 700);
     intro.classList.add("leaving");
@@ -290,7 +318,7 @@
     running = true; root.classList.add("intro-on"); intro.style.animation = "none"; void intro.offsetWidth; intro.style.animation = "";
     if (loom.unpauseAnimations) loom.unpauseAnimations();
     loom.setAttribute("viewBox", "-400 -250 2400 1500"); light(loom, "all"); caption(NODES.all);
-    const HOLD = 1050, total = 900 + SEQ.length * HOLD + 1500;
+    const HOLD = 950, total = 900 + SEQ.length * HOLD + 1500;
     prog.style.transition = "none"; prog.style.width = "0"; void prog.offsetWidth;
     prog.style.transition = "width " + total + "ms linear"; prog.style.width = "100%";
     let t = 900;
@@ -298,13 +326,13 @@
       timers.push(setTimeout(() => { cam.to(NODES[key].box, 760); light(loom, key); caption(NODES[key]); }, t));
       t += HOLD;
     });
-    timers.push(setTimeout(() => { cam.to(NODES.all.box, 900); light(loom, "all"); caption(NODES.all); }, t));
+    timers.push(setTimeout(() => { cam.to(NODES.close.box, 900); light(loom, "all"); caption(NODES.close); }, t));
     timers.push(setTimeout(() => endIntro(false), t + 1500));
     addEventListener("keydown", skipKeys, true); addEventListener("wheel", skipWheel, { passive: true }); addEventListener("touchmove", skipWheel, { passive: true });
   };
   byId("intro-skip").addEventListener("click", () => endIntro(true));
   intro.addEventListener("click", (ev) => { if (!ev.target.closest("#intro-skip")) endIntro(true); });
-  replay.addEventListener("click", () => { scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" }); startIntro(); });
+  replay.addEventListener("click", () => { replaying = true; scrollTo(0, 0); startIntro(); });
   if (root.classList.contains("intro-on")) startIntro(); else { replay.hidden = reduceMotion; if (loom.pauseAnimations) loom.pauseAnimations(); }
 
   /* ---------------- Code copy ---------------- */
@@ -330,6 +358,7 @@
     const ev = byId("event"); ev.textContent = message; ev.dataset.kind = kind || "";
     ev.classList.remove("flash"); void ev.offsetWidth; ev.classList.add("flash");
   };
+  let lastCount = -1;
   const render = () => {
     const q = byId("filter").value.trim().toLocaleLowerCase();
     const subset = rows.filter((r) => r.text.toLocaleLowerCase().includes(q));
@@ -352,7 +381,8 @@
     }
     const count = byId("count");
     count.textContent = rows.length + " synthetic record" + (rows.length === 1 ? "" : "s");
-    count.classList.remove("bump"); void count.offsetWidth; count.classList.add("bump");
+    if (lastCount !== -1 && lastCount !== rows.length) { count.classList.remove("bump"); void count.offsetWidth; count.classList.add("bump"); }
+    lastCount = rows.length;
   };
   const remember = () => {
     const input = byId("fact");
@@ -368,7 +398,7 @@
     play("success");
   };
   byId("remember").addEventListener("click", remember);
-  byId("fact").addEventListener("keydown", (ev) => { if (ev.key === "Enter") { ev.preventDefault(); remember(); } });
+  byId("fact").addEventListener("keydown", (ev) => { if (ev.key === "Enter" && !ev.isComposing) { ev.preventDefault(); remember(); } });
   byId("filter").addEventListener("input", () => { freshId = 0; render(); });
   byId("handoff").addEventListener("click", () => {
     status("ALLOW (simulation): owner A grants an invented agent access to " + rows.length + " general example record(s). No data sent.", "allow");
