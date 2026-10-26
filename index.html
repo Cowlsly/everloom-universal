@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0d1717">
-<meta name="description" content="Everloom Memory Nexus is an experimental, owner-controlled memory architecture for local-first AI continuity. Explore security principles, roadmap and a browser-only demo.">
+<meta name="description" content="Everloom Memory Nexus is an experimental, owner-controlled memory architecture for local-first AI continuity. Explore the memory lifecycle, the safe demo, who we are, the roadmap and where it could lead.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Everloom Memory Nexus | Memory belongs to you">
 <meta property="og:description" content="An experimental, local-first memory architecture with verified boundaries and an honest development status.">
@@ -14,17 +14,20 @@
 <link rel="canonical" href="https://cowlsly.website/">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="upgrade.css">
 <title>Everloom Memory Nexus | Memory belongs to you</title>
+<script>(function(){var e=document.documentElement;e.classList.add("js");try{var p=JSON.parse(sessionStorage.getItem("everloom.prefs")||"{}");var m=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;var s=navigator.connection&&navigator.connection.saveData;if(m||s||p.calm)e.classList.add("calm")}catch(x){}setTimeout(function(){if(!e.classList.contains("ready"))e.classList.remove("js")},3000)})();</script>
+<noscript><style>[hidden]{display:block!important}.node-toggle,.step-nav,.arch-tools{display:none}</style></noscript>
 <script src="app.js" defer></script>
 </head>
-<body>
+<body data-page="home">
 <a class="skip" href="#main">Skip to main content</a>
 <header class="masthead">
  <nav class="nav wrap" aria-label="Main navigation">
    <a class="brand" href="#home" aria-label="Everloom Memory Nexus home"><span class="mark" aria-hidden="true">✦</span><span><b>EVERLOOM</b><small>MEMORY NEXUS</small></span></a>
-   <button class="menu-toggle" type="button" aria-controls="nav-links" aria-expanded="false">Menu <span aria-hidden="true">☰</span></button>
-   <div id="nav-links" class="nav-links"><a href="#how">How it works</a><a href="gallery.html">Visual gallery</a><a href="#shop">App & shop</a><a href="#security">Security</a><a href="#demo">Live demo</a><a href="#status">Status</a><a href="#developers">Developers</a></div>
- <div class="audio-controls" role="group" aria-label="Optional site audio"><button type="button" id="sound-toggle" aria-pressed="false" title="Enable button effects">♫ Effects off</button><button type="button" id="music-toggle" aria-pressed="false" title="Enable gentle ambient music">♪ Music off</button></div>
+   <button class="menu-toggle" type="button" aria-controls="nav-links" aria-expanded="false" data-sfx="none">Menu <span aria-hidden="true">☰</span></button>
+   <div id="nav-links" class="nav-links"><a href="#how">How it works</a><a href="#lifecycle">Lifecycle</a><a href="#about">About</a><a href="#future">The future</a><a href="gallery.html">Visual gallery</a><a href="#shop">App & shop</a><a href="#security">Security</a><a href="#demo">Live demo</a><a href="#status">Status</a><a href="#developers">Developers</a><a class="ack-link" href="acknowledgements.html">Acknowledgements</a></div>
+   <div class="audio-controls" role="group" aria-label="Optional site audio and tools"><button type="button" id="sound-toggle" aria-pressed="false" title="Enable button effects" data-sfx="none">♫ Effects off</button><button type="button" id="music-toggle" aria-pressed="false" title="Enable gentle ambient music" data-sfx="none">♪ Music off</button><button type="button" data-act="mute" aria-pressed="false" data-sfx="none">Mute</button><button type="button" data-open="panel" aria-haspopup="dialog" data-sfx="none">Sound and motion</button><button type="button" data-open="jump" aria-haspopup="dialog" data-sfx="none">Jump to <kbd>/</kbd></button></div>
  </nav>
 </header>
 <main id="main">
@@ -35,7 +38,8 @@
    <p class="eyebrow"><span class="pulse" aria-hidden="true"></span> Local-first AI continuity · Research prototype</p>
    <h1 id="hero-title">Memory should <em>belong to you.</em></h1>
    <p class="lede">Everloom Memory Nexus explores a future where your AI tools can remember what matters without surrendering ownership, boundaries, or the right to forget.</p>
-   <div class="actions"><a class="btn primary" href="#demo">Explore the safe demo <span aria-hidden="true">↗</span></a><a class="btn secondary" href="gallery.html">See the full workflow ↗</a></div>
+   <div class="actions"><a class="btn primary" href="#demo">Explore the safe demo <span aria-hidden="true">↗</span></a><a class="btn secondary" href="gallery.html">See the full workflow ↗</a><a class="btn secondary" href="#lifecycle">Follow a memory ↓</a><a class="btn ack" href="acknowledgements.html">Acknowledgements and Accreditations</a></div>
+   <ul class="hero-kicker" aria-label="Site promises"><li>Runs in your browser</li><li>No account</li><li>No tracking</li><li>Sound is off until you tap</li></ul>
    <p class="hero-note">Built by Cowlsly. The website is an explanatory prototype, not a hosted memory service. Never submit secrets.</p>
   </div>
   <figure class="workflow-art"><a href="gallery.html" aria-label="Open the full visual workflow gallery"><img src="workflow-overview.svg" alt="Detailed illustrated Everloom workflow showing capture, classification, local SQLite, verified identity, non-vault cloud sync, audit, and owner control" width="1100" height="860"></a><figcaption>Seven guarded steps · <a href="gallery.html">View the full-size diagrams ↗</a></figcaption></figure>
@@ -51,20 +55,61 @@
   </div>
  </div>
 </section>
+<section class="section lifecycle-section" id="lifecycle" aria-labelledby="lc-title"><div class="wrap">
+<div class="section-heading"><p class="eyebrow">Interactive · Tap through five steps</p><h2 id="lc-title">The life of a memory.</h2><p>Select a step, or use the arrow keys. This illustrates the design. Nothing is stored and nothing leaves this page.</p></div>
+<div class="tabs lc-explorer">
+ <div class="lc-track" role="tablist" aria-label="Memory lifecycle steps">
+  <button type="button" role="tab" id="lc-tab-1" aria-controls="lc-panel-1" aria-selected="true"><span class="dot">1</span><span class="lc-label">Create with source</span></button>
+  <button type="button" role="tab" id="lc-tab-2" aria-controls="lc-panel-2" aria-selected="false" tabindex="-1"><span class="dot">2</span><span class="lc-label">Classify and scope</span></button>
+  <button type="button" role="tab" id="lc-tab-3" aria-controls="lc-panel-3" aria-selected="false" tabindex="-1"><span class="dot">3</span><span class="lc-label">Use with permission</span></button>
+  <button type="button" role="tab" id="lc-tab-4" aria-controls="lc-panel-4" aria-selected="false" tabindex="-1"><span class="dot">4</span><span class="lc-label">Review and correct</span></button>
+  <button type="button" role="tab" id="lc-tab-5" aria-controls="lc-panel-5" aria-selected="false" tabindex="-1"><span class="dot">5</span><span class="lc-label">Forget or archive</span></button>
+ </div>
+ <div class="lc-body">
+  <div>
+   <div class="tabpanel" role="tabpanel" id="lc-panel-1" aria-labelledby="lc-tab-1"><h3>Create with source</h3><p>A fact is recorded together with where it came from, its scope, the time and its lifecycle. Uncertainty stays visible instead of a guess quietly becoming history.</p><ul><li>Source and time travel with the fact</li><li>Guesses are labelled as guesses</li></ul></div>
+   <div class="tabpanel" role="tabpanel" id="lc-panel-2" aria-labelledby="lc-tab-2" hidden><h3>Classify and scope</h3><p>Each memory belongs to an owner and carries a classification. The private vault is a separate class that stays on the device and out of routine pull, search and handoff.</p><ul><li>Owner and classification are set by the system, not claimed by a caller</li><li>Vault records have no ordinary cloud route</li></ul></div>
+   <div class="tabpanel" role="tabpanel" id="lc-panel-3" aria-labelledby="lc-tab-3" hidden><h3>Use with permission</h3><p>An agent should receive the smallest useful context, and only under a verified identity and an explicit grant. A grant scopes both the owner and the classification, and a mismatch is denied.</p><ul><li>Grants can expire and can be revoked</li><li>Every decision is meant to leave an audit trail</li></ul></div>
+   <div class="tabpanel" role="tabpanel" id="lc-panel-4" aria-labelledby="lc-tab-4" hidden><h3>Review and correct</h3><p>When two edits disagree, both versions are kept and shown side by side for the owner to settle. Corrections are visible in the audit trail, and nothing is silently overwritten.</p><ul><li>Conflicts are surfaced, not hidden</li><li>The owner has the final say</li></ul></div>
+   <div class="tabpanel" role="tabpanel" id="lc-panel-5" aria-labelledby="lc-tab-5" hidden><h3>Forget or archive</h3><p>The owner can ask for a memory to be forgotten or archived, and can restore from a known-good backup.</p><p class="lc-note">Retention, deletion and backup restore still need separate end-to-end acceptance tests before any production use.</p></div>
+   <div class="step-nav"><button type="button" data-lc="prev" data-sfx="none">← Previous</button><button type="button" data-lc="next" data-sfx="none">Next step →</button><button type="button" data-tour aria-pressed="false" data-sfx="none">Play the tour</button></div>
+  </div>
+  <aside class="rec" aria-label="Example record, invented for illustration"><h4>Example record</h4><p>Invented, for illustration only.</p>
+   <ul id="lc-rec"><li data-state="now"><b>Created</b><span>Now</span></li><li data-state="todo"><b>Classified</b><span>Next</span></li><li data-state="todo"><b>Shared by grant</b><span>Next</span></li><li data-state="todo"><b>Reviewed</b><span>Next</span></li><li data-state="todo"><b>Archived or forgotten</b><span>Next</span></li></ul>
+  </aside>
+ </div>
+</div>
+</div></section>
 <section class="section architecture" id="architecture">
  <div class="wrap">
  <div class="section-heading"><p class="eyebrow">System blueprint</p><h2>Two homes. One owner.</h2><p>The local device remains the center of gravity; cloud synchronization is a separately secured boundary, not a universal entitlement.</p></div>
+ <div class="arch-tools"><button type="button" id="arch-all" aria-pressed="false" data-sfx="none">Expand all details</button></div>
  <div class="arch-grid" aria-label="Conceptual architecture">
-  <div class="arch-node"><span class="node-tag">DEVICE</span><h3>Private local memory</h3><p>SQLite · search · provenance · offline work · local vault</p></div>
+  <div class="arch-node"><span class="node-tag">DEVICE</span><h3>Private local memory</h3><p>SQLite · search · provenance · offline work · local vault</p><button type="button" class="node-toggle" aria-expanded="false" aria-controls="nm-1">More detail</button><div class="node-more" id="nm-1" hidden><p>Memory is kept on the device first, with its source and an audit trail, and it keeps working offline. The private vault is stored encrypted and stays here, outside routine sync.</p></div></div>
   <div class="arch-arrow" aria-hidden="true"><span>⇄</span><small>verified grants only</small></div>
-  <div class="arch-node"><span class="node-tag">TRUST BOUNDARY</span><h3>Authenticated sync layer</h3><p>Owner binding · scopes · expiry · deny on mismatch</p></div>
+  <div class="arch-node"><span class="node-tag">TRUST BOUNDARY</span><h3>Authenticated sync layer</h3><p>Owner binding · scopes · expiry · deny on mismatch</p><button type="button" class="node-toggle" aria-expanded="false" aria-controls="nm-2">More detail</button><div class="node-more" id="nm-2" hidden><p>Identity is decided on the server side and never taken from the caller’s own request. Each grant is scoped to an owner and a classification, and anything that does not match is denied.</p></div></div>
   <div class="arch-arrow" aria-hidden="true"><span>⇄</span><small>non-vault records</small></div>
-  <div class="arch-node"><span class="node-tag">CLOUD PROTOTYPE</span><h3>Private PostgreSQL</h3><p>RLS · immutable audit design · sequencing · no public records</p></div>
+  <div class="arch-node"><span class="node-tag">CLOUD PROTOTYPE</span><h3>Private PostgreSQL</h3><p>RLS · immutable audit design · sequencing · no public records</p><button type="button" class="node-toggle" aria-expanded="false" aria-controls="nm-3">More detail</button><div class="node-more" id="nm-3" hidden><p>A private prototype database with row level security and an audit design. It holds no public records and is not an approved production service.</p></div></div>
  </div>
  <div class="boundary"><span aria-hidden="true">✳</span><p><b>Vault boundary:</b> Private-vault records must not appear in routine pull, search, handoff or this demonstration. Optional encrypted transfer remains unapproved and unavailable.</p></div>
- <details class="detail"><summary>Memory lifecycle <span aria-hidden="true">＋</span></summary><div class="life"><span>Create with source</span><span>Classify and scope</span><span>Use with permission</span><span>Review and correct</span><span>Forget or archive</span></div><p>Retention, deletion and backup restore require separate end-to-end acceptance tests before production use.</p></details>
+ <p class="lc-foot">Looking for the memory lifecycle? <a class="text-link" href="#lifecycle">Open the interactive explorer ↑</a></p>
  </div>
 </section>
+<section class="section about-section" id="about" aria-labelledby="about-title"><div class="wrap">
+<div class="section-heading"><p class="eyebrow">About us</p><h2 id="about-title">Who we are, and why this exists.</h2><p>Everloom is a small, independent project that tries to be honest about what it is and what it is not yet.</p></div>
+<div class="tabs pills about-tabs">
+ <div role="tablist" aria-label="About Everloom">
+  <button type="button" role="tab" id="ab-tab-1" aria-controls="ab-panel-1" aria-selected="true">Who we are</button>
+  <button type="button" role="tab" id="ab-tab-2" aria-controls="ab-panel-2" aria-selected="false" tabindex="-1">Ideas for the future</button>
+  <button type="button" role="tab" id="ab-tab-3" aria-controls="ab-panel-3" aria-selected="false" tabindex="-1">Changing how we see AI</button>
+  <button type="button" role="tab" id="ab-tab-4" aria-controls="ab-panel-4" aria-selected="false" tabindex="-1">How you can help</button>
+ </div>
+ <div class="tabpanel" role="tabpanel" id="ab-panel-1" aria-labelledby="ab-tab-1"><h3>Cowlsly and the Everloom project</h3><p>Cowlsly is an independent maker. Everloom Memory Nexus is its research prototype for AI memory that stays under the owner’s control. Shane (Cowlsly) leads the project and works with a small circle of AI assistants and tools, who are credited by name.</p><ul class="pillars"><li><b>Independent.</b> One owner, with the final say on every release.</li><li><b>Honest about status.</b> The status table says what exists and what is still unproven.</li><li><b>Credit where it is due.</b> The AI systems that helped are named, not hidden.</li></ul><p class="help-cta"><a class="btn ack" href="acknowledgements.html">Meet the people and systems who helped ↗</a></p></div>
+ <div class="tabpanel" role="tabpanel" id="ab-panel-2" aria-labelledby="ab-tab-2" hidden><h3>Project ideas for the future</h3><p>These are ideas we want to explore, not promises.</p><ul><li>Memory that follows its owner across a phone and a desktop</li><li>Portable, integrity-checked backups the owner can keep</li><li>A scoped handoff, so one AI tool can pass context to another without seeing more than it should</li><li>A verified Cowslide identity and wallet, where a legitimate product exists</li><li>Developer kits, once the isolation boundary has been proven</li></ul><p><a class="text-link" href="#future">See where it might lead ↓</a></p></div>
+ <div class="tabpanel" role="tabpanel" id="ab-panel-3" aria-labelledby="ab-tab-3" hidden><h3>A different way to see AI</h3><p>Many people picture AI memory as something a company holds about them somewhere else. Everloom explores the opposite picture: memory is yours, like a document you keep, and an AI tool only borrows the part you choose to lend it.</p><ul class="pillars"><li><b>Ownership.</b> The owner decides where memory lives, who can read it and when it goes.</li><li><b>Consent.</b> Access is explicit, scoped and able to be revoked.</li><li><b>Forgetting is a feature.</b> A good memory can also correct itself and let go.</li><li><b>Plain claims.</b> Everloom is bounded software. It does not make an AI conscious.</li></ul><p>If the idea works, it could help people trust AI tools for the right reasons. That is an aim, and it needs evidence first.</p></div>
+ <div class="tabpanel" role="tabpanel" id="ab-panel-4" aria-labelledby="ab-tab-4" hidden><h3>How you can help</h3><ul class="help-list"><li><span>1</span><div><b>Read the status.</b> Check the <a class="text-link" href="#status">honest status table</a> and tell us if anything is unclear.</div></li><li><span>2</span><div><b>Try the safe demo.</b> The <a class="text-link" href="#demo">browser-only demo</a> uses invented records and sends nothing.</div></li><li><span>3</span><div><b>Give public feedback.</b> Tell us what worked and what confused you on the public feedback page.</div></li><li><span>4</span><div><b>Suggest ideas.</b> Share a suggestion on the same public page. Please never post secrets or personal data there.</div></li><li><span>5</span><div><b>Follow progress.</b> This site’s status table and its dated overview show what has changed.</div></li></ul><p class="help-cta"><a class="btn primary" href="https://github.com/Cowlsly/everloom-universal/issues" target="_blank" rel="noopener noreferrer">Public project feedback ↗</a></p></div>
+</div>
+</div></section>
 <section class="section shop-section" id="shop" aria-labelledby="shop-title"><div class="wrap">
 <div class="section-heading"><p class="eyebrow">Everloom · Product and storefront</p><h2 id="shop-title">A home for the app.</h2><p>Explore the working research demonstration and follow development of the future downloadable Everloom application. There is no chargeable product or enabled checkout until security, release packaging, prices and support are verified.</p></div>
 <div class="cards three shop-cards"><article class="tile"><span class="tile-icon">01</span><h3>Everloom for Android</h3><p>Local-first memory for phones, beginning with a Termux proof of concept. Not ready for general installation or sale.</p><p class="product-state">Pre-release · Price not set</p><a class="btn secondary" href="#status">See release progress ↗</a></article>
@@ -88,9 +133,9 @@
 <div class="demo-shell">
  <div class="demo-head"><span><span class="pulse" aria-hidden="true"></span> Synthetic sandbox</span><span>Offline logic · No account · No database</span></div>
  <div class="demo-body">
-  <div class="demo-editor"><label for="fact">Add a harmless fictional fact</label><div class="field-group"><input id="fact" type="text" maxlength="160" autocomplete="off" placeholder="Example: The teal compass points north"><button type="button" id="remember" class="btn primary">Remember</button></div>
+  <div class="demo-editor"><label for="fact">Add a harmless fictional fact</label><div class="field-group"><input id="fact" type="text" maxlength="160" autocomplete="off" placeholder="Example: The teal compass points north"><button type="button" id="remember" class="btn primary" data-sfx="none">Remember</button></div>
   <label for="filter">Search your example memories</label><input id="filter" type="search" placeholder="Search synthetic memories" autocomplete="off">
-  <div class="demo-toolbar"><button type="button" id="handoff">Authorized handoff</button><button type="button" id="deny">Deny other owner</button><button type="button" id="conflict">Show edit conflict</button><button type="button" id="restore">Restore demo backup</button></div></div>
+  <div class="demo-toolbar"><button type="button" id="handoff" data-sfx="none">Authorized handoff</button><button type="button" id="deny" data-sfx="none">Deny other owner</button><button type="button" id="conflict" data-sfx="none">Show edit conflict</button><button type="button" id="restore" data-sfx="none">Restore demo backup</button></div></div>
   <div class="demo-output"><div class="output-title"><h3>Memory records</h3><span id="count">2 synthetic records</span></div><ul id="records" class="records"></ul><p id="event" class="event" role="status" aria-live="polite">Sandbox ready. Nothing leaves this page.</p></div>
  </div>
 </div>
@@ -98,7 +143,7 @@
 </div>
 </section>
 <section class="section status-section" id="status">
-<div class="wrap"><div class="section-heading"><p class="eyebrow">Evidence over promises</p><h2>A transparent build status.</h2><p>Snapshot: 19 October 2026. “Implemented” means code exists, not that a production release is approved.</p></div>
+<div class="wrap"><div class="section-heading"><p class="eyebrow">Evidence over promises</p><h2>A transparent build status.</h2><p>Snapshot: 19 October 2026. “Implemented” means code exists, not that a production release is approved. The site was upgraded on 26 October 2026, and this table has not been re-reviewed since 19 October.</p></div>
 <div class="table-scroll"><table><caption>Everloom development status as evidenced or conservatively qualified</caption><thead><tr><th scope="col">Capability</th><th scope="col">Classification</th><th scope="col">What that actually means</th></tr></thead><tbody>
 <tr><th scope="row">Local SQLite memory, search and audit</th><td><span class="status implemented">Prototype exists</span></td><td>Code and historical tests; current integrated release testing pending.</td></tr>
 <tr><th scope="row">Cloud identity and private RLS foundation</th><td><span class="status foundation">Deployed foundation</span></td><td>Free-tier private project; advisor checks have shown no findings, not an end-to-end approval.</td></tr>
@@ -112,6 +157,24 @@
 <div class="wrap"><div class="section-heading"><p class="eyebrow">What happens next</p><h2>Built carefully, in the open.</h2></div>
 <ol class="roadmap"><li><span>01</span><div><h3>Reconcile and test the baseline</h3><p>Unify migrations and test fixtures; preserve existing production data.</p></div></li><li><span>02</span><div><h3>Prove the isolation boundary</h3><p>Two different authenticated owners, revoked agents, vault denial and every privileged endpoint.</p></div></li><li><span>03</span><div><h3>Validate resilience</h3><p>Repeatable conflict handling, interrupted sync, integrity-checked encrypted backup and a genuine restore drill.</p></div></li><li><span>04</span><div><h3>Run a bounded mobile pilot</h3><p>Small, synthetic trials on real devices with consent, rollback and no actual credentials in a prototype vault.</p></div></li></ol></div>
 </section>
+<section class="section future-section" id="future" aria-labelledby="future-title"><div class="wrap">
+<div class="section-heading"><p class="eyebrow">The future</p><h2 id="future-title">Where Everloom might lead.</h2><p>This grows out of the roadmap above and the wider Cowlsly ecosystem.</p></div>
+<p class="aim-note">Aims and possibilities only. Nothing here is a promise, a price or a release date.</p>
+<div class="btn-row" style="margin-bottom:16px"><button type="button" id="future-all" aria-pressed="false" data-sfx="none">Expand all phases</button></div>
+<div class="phases">
+<details><summary><i>01</i> Reconcile and test the baseline</summary><div class="body"><p><b>The aim.</b> One tested foundation, with earlier work and the cloud prototype agreeing.</p><p><b>If it goes well.</b> Later steps can build on firm ground instead of assumptions.</p><p><b>Still unproven.</b> Current integrated release testing is pending, as the status table says.</p></div></details>
+<details><summary><i>02</i> Prove the isolation boundary</summary><div class="body"><p><b>The aim.</b> Show that one owner can never reach another owner’s memory, even through a revoked agent.</p><p><b>If it goes well.</b> A safer base for letting more than one AI tool work with the same memory.</p><p><b>Still unproven.</b> Restricted-identity and cross-owner tests remain open gates.</p></div></details>
+<details><summary><i>03</i> Validate resilience</summary><div class="body"><p><b>The aim.</b> Handle conflicts and interrupted sync calmly, and prove a genuine restore from backup.</p><p><b>If it goes well.</b> Owners could trust that a memory survives a bad day.</p><p><b>Still unproven.</b> The restore drill has not been completed.</p></div></details>
+<details><summary><i>04</i> Run a bounded mobile pilot</summary><div class="body"><p><b>The aim.</b> Small, synthetic trials on real phones, with consent and a way to roll back.</p><p><b>If it goes well.</b> A path towards Everloom for Android and, later, desktop and developer tools.</p><p><b>Still unproven.</b> Android and Termux have not been independently tested on a real phone.</p></div></details>
+</div>
+<div class="possible"><h3 style="color:var(--ivory)">Possibilities beyond the roadmap</h3>
+<div class="cards three">
+<article class="tile"><span class="tag">Possibility</span><h3>Everloom for Android</h3><p>Local-first memory on a phone, beginning as a Termux proof of concept. Only if real-device checks pass.</p></article>
+<article class="tile"><span class="tag">Possibility</span><h3>Desktop and developer tools</h3><p>Multi-device interfaces, portable backups, APIs and integration kits, once the boundary is proven.</p></article>
+<article class="tile"><span class="tag">Possibility</span><h3>Cowslide identity and wallet</h3><p>Sign in with a verified Cowslide account and offer Slide Wallet where a legitimate product exists. Not connected yet.</p></article>
+</div></div>
+<p class="demo-disclaimer">The status table remains the source of truth for what exists today.</p>
+</div></section>
 <section class="section" id="developers">
 <div class="wrap split"><div><p class="eyebrow">For builders</p><h2>An interface that earns trust.</h2><p class="section-copy">Everloom's proposed agent interfaces keep identity outside of user-controlled payloads. Requests are authorized server-side; each grant scopes both owner and memory classification. The examples here are concepts, not a public API.</p></div><div class="code-panel"><span>PROPOSED CONTRACT · NOT A LIVE ENDPOINT</span><pre><code>session_start(consent, scope)
 remember(fact, source, level)
@@ -124,12 +187,12 @@ forget(id, requested_mode)</code></pre><p>Public documents must never contain pr
 <section class="section faq-section" id="faq">
 <div class="wrap"><div class="section-heading"><p class="eyebrow">Questions worth asking</p><h2>Clarity is a feature.</h2></div>
 <details><summary>Can I store passwords or sensitive documents in Everloom today?</summary><p>No. The project remains a prototype. Do not entrust it with actual secrets or identity papers before a tested, approved secure release.</p></details>
-<details><summary>Does the site collect or synchronize my demo memories?</summary><p>No. Its sample records and anything you type live only in JavaScript memory in this browser tab. Refreshing the page clears them.</p></details>
+<details><summary>Does the site collect or synchronize my demo memories?</summary><p>No. Its sample records and anything you type live only in JavaScript memory in this browser tab. Refreshing the page clears them. Your sound and motion choices are kept only in this tab’s session storage and clear when you close the tab.</p></details>
 <details><summary>Does Everloom make an AI permanently conscious or continuously connected?</summary><p>No. It is software for bounded memory records and task handoff, not an always-on consciousness or a magical connection between providers.</p></details>
 <details><summary>Where does my data ultimately belong?</summary><p>The design goal is to keep the owner in control of storage, permissions, export and deletion. Complete production guarantees still require testing.</p></details>
 </div></section>
-<section class="endnote"><div class="wrap endnote-grid"><div><p class="eyebrow">Made for the long memory</p><h2>Own your context.<br><em>Keep your future.</em></h2></div><div><p>Everloom Memory Nexus is an independently developed research prototype by Cowlsly. Technical readiness and safety claims require independent evidence.</p><a class="btn secondary" href="#home">Back to top ↑</a></div></div></section>
+<section class="endnote"><div class="wrap endnote-grid"><div><p class="eyebrow">Made for the long memory</p><h2>Own your context.<br><em>Keep your future.</em></h2></div><div><p>Everloom Memory Nexus is an independently developed research prototype by Cowlsly. Technical readiness and safety claims require independent evidence.</p><a class="btn secondary" href="#home">Back to top ↑</a> <a class="btn ack" href="acknowledgements.html">Acknowledgements ↗</a></div></div></section>
 </main>
-<footer class="footer"><div class="wrap footer-grid"><div><b>✦ EVERLOOM</b><p>Memory Nexus · By Cowlsly</p></div><div><a href="#security">Privacy principles</a><a href="#status">Development status</a><a href="#faq">FAQ</a><a href="gallery.html">Diagrams</a><a href="#shop">App & shop</a><a href="https://cowslide.online/" rel="noopener noreferrer">Cowslide ↗</a><a href="https://github.com/Cowlsly/everloom-universal/issues" rel="noopener noreferrer">Public project feedback ↗</a></div><div><p>© 2026 Cowlsly. No analytics, cookies, accounts or payment collection on this site. Audio is off until you enable it.</p><p id="last-updated">Public prototype overview · 19 October 2026</p></div></div></footer>
+<footer class="footer"><div class="wrap footer-grid"><div><b>✦ EVERLOOM</b><p>Memory Nexus · By Cowlsly</p></div><div><a href="#security">Privacy principles</a><a href="#status">Development status</a><a href="#about">About us</a><a href="#future">The future</a><a href="#faq">FAQ</a><a href="gallery.html">Diagrams</a><a href="#shop">App & shop</a><a href="acknowledgements.html">Acknowledgements and Accreditations</a><a href="https://cowslide.online/" rel="noopener noreferrer">Cowslide ↗</a><a href="https://github.com/Cowlsly/everloom-universal/issues" rel="noopener noreferrer">Public project feedback ↗</a></div><div><p>© 2026 Cowlsly. No analytics, cookies, accounts or payment collection on this site. Audio is off until you enable it. Sound and motion choices stay in this tab’s session only.</p><p id="last-updated">Public prototype overview · 26 October 2026</p></div></div></footer>
 </body>
 </html>

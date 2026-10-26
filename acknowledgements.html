@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0d1717">
+<meta name="description" content="Acknowledgements and accreditations for Everloom Memory Nexus: the creator, the AI systems that helped, and the tools and open work the project is built with.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Acknowledgements and Accreditations | Everloom Memory Nexus">
+<meta property="og:description" content="Who helped build Everloom, including the AI systems Shane worked with, credited plainly.">
+<meta property="og:url" content="https://cowlsly.website/acknowledgements.html">
+<meta property="og:image" content="https://cowlsly.website/og-card.svg">
+<meta name="color-scheme" content="dark light">
+<link rel="canonical" href="https://cowlsly.website/acknowledgements.html">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="upgrade.css">
+<title>Acknowledgements and Accreditations | Everloom Memory Nexus</title>
+<noscript><style>[hidden]{display:block!important}</style></noscript>
+<script src="app.js" defer></script>
+</head>
+<body data-page="ack">
+<a class="skip" href="#main">Skip to main content</a>
+<header class="masthead">
+ <nav class="nav wrap" aria-label="Main navigation">
+   <a class="brand" href="index.html" aria-label="Everloom Memory Nexus home"><span class="mark" aria-hidden="true">✦</span><span><b>EVERLOOM</b><small>MEMORY NEXUS</small></span></a>
+   <button class="menu-toggle" type="button" aria-controls="nav-links" aria-expanded="false" data-sfx="none">Menu <span aria-hidden="true">☰</span></button>
+   <div id="nav-links" class="nav-links"><a href="index.html">Home</a><a href="index.html#about">About</a><a href="index.html#future">The future</a><a href="gallery.html">Visual gallery</a><a href="index.html#status">Status</a><a class="ack-link" href="acknowledgements.html" aria-current="page">Acknowledgements</a></div>
+   <div class="audio-controls" role="group" aria-label="Optional site audio and tools"><button type="button" id="sound-toggle" aria-pressed="false" title="Enable button effects" data-sfx="none">♫ Effects off</button><button type="button" id="music-toggle" aria-pressed="false" title="Enable gentle ambient music" data-sfx="none">♪ Music off</button><button type="button" data-act="mute" aria-pressed="false" data-sfx="none">Mute</button><button type="button" data-open="panel" aria-haspopup="dialog" data-sfx="none">Sound and motion</button><button type="button" data-open="jump" aria-haspopup="dialog" data-sfx="none">Jump to <kbd>/</kbd></button></div>
+ </nav>
+</header>
+<main id="main">
+<section class="ack-hero">
+ <div class="wrap">
+  <p class="eyebrow">With thanks</p>
+  <h1>Acknowledgements and Accreditations</h1>
+  <p class="lede">Everloom was started by Shane (Cowlsly) and built with the help of several AI systems and tools. Shane asked that they are credited here, plainly and with respect, as part of the story of this project.</p>
+  <div class="ack-actions"><a class="btn primary" href="index.html">← Back to home</a><a class="btn secondary" href="index.html#about">About us ↗</a><a class="btn secondary" href="https://github.com/Cowlsly/everloom-universal/issues" target="_blank" rel="noopener noreferrer">Public project feedback ↗</a></div>
+ </div>
+</section>
+<section class="section" style="padding-top:40px">
+ <div class="wrap">
+  <div class="ack-group" style="margin-top:0">
+   <h2>The creator</h2>
+   <p class="section-copy">Every idea, decision and release on this project is Shane's to make.</p>
+   <div class="ack-grid">
+    <article class="ack-card"><span class="role">Creator and project owner</span><h3>Shane (Cowlsly)</h3><p>Created Everloom Memory Nexus, sets its direction and holds the final say on what is merged and released.</p></article>
+   </div>
+  </div>
+  <div class="ack-group">
+   <h2>The AI collaborators</h2>
+   <p class="section-copy">These assistants are credited by the names Shane gives them, together with the systems they run on. They work with Shane, and Shane is responsible for what is published.</p>
+   <div class="ack-grid">
+    <article class="ack-card"><span class="role">Coordination</span><h3>Marla</h3><p>A ChatGPT based assistant that helps coordinate project decisions and directives, and keeps work moving between the other assistants.</p></article>
+    <article class="ack-card"><span class="role">Manuscripts and visuals</span><h3>Ussylia</h3><p>A Grok based assistant that supports Shane's manuscripts and helps keep visuals consistent across the wider project.</p></article>
+    <article class="ack-card"><span class="role">Code quality, security and tests</span><h3>Claude (Anthropic)</h3><p>Reviewed security boundaries, fixed review findings and extended the automated tests, including the Payload 4 engineering work.</p></article>
+    <article class="ack-card"><span class="role">Underlying system</span><h3>ChatGPT (OpenAI)</h3><p>The system behind Marla, used for planning, drafting and review.</p></article>
+    <article class="ack-card"><span class="role">Underlying system</span><h3>Grok (xAI)</h3><p>The system behind Ussylia.</p></article>
+    <article class="ack-card"><span class="role">Assistant platform</span><h3>Symphony and The Maestro (Wix)</h3><p>Symphony is the Wix assistant platform. The Maestro and its team of agents helped with research, repository checks and the interactive upgrade of this website.</p></article>
+   </div>
+  </div>
+  <div class="ack-group">
+   <h2>Built with</h2>
+   <p class="section-copy">Tools and services the project depends on.</p>
+   <ul class="built-list">
+    <li><b>GitHub</b><p>Holds the source code, pull requests and automated checks. GitHub Pages serves this website.</p></li>
+    <li><b>Cloudflare</b><p>Provides DNS and the HTTPS front door for cowlsly.website.</p></li>
+    <li><b>Supabase</b><p>Hosts the private PostgreSQL foundation of the cloud prototype. It is not a public service.</p></li>
+    <li><b>SQLite and PostgreSQL</b><p>The local and cloud storage technologies in Everloom's design.</p></li>
+    <li><b>Web Audio API</b><p>Every sound and the ambient music on this site is synthesised live by your browser. No audio files are used.</p></li>
+   </ul>
+  </div>
+  <div class="ack-group">
+   <h2>Open work we build on</h2>
+   <div class="ack-grid">
+    <article class="ack-card"><span class="role">Design reference, MIT licence</span><h3>FrontPocket, by Meistro</h3><p>Everloom's project repository keeps a copy of FrontPocket's memory model notes as a design reference, with the original licence. The original author is Meistro (GitHub: meistro57).</p></article>
+   </div>
+  </div>
+  <div class="ack-note"><p>Company and product names are credited as tools and systems that helped. No endorsement, partnership or sponsorship by any company is claimed or implied. AI systems can make mistakes, so Shane remains responsible for decisions and for what this site says.</p></div>
+  <div class="ack-actions"><a class="btn primary" href="index.html">← Back to home</a><a class="btn secondary" href="#main">Back to top ↑</a></div>
+ </div>
+</section>
+</main>
+<footer class="footer"><div class="wrap footer-grid"><div><b>✦ EVERLOOM</b><p>Memory Nexus · By Cowlsly</p></div><div><a href="index.html">Home</a><a href="index.html#about">About us</a><a href="index.html#future">The future</a><a href="acknowledgements.html">Acknowledgements</a><a href="https://github.com/Cowlsly/everloom-universal/issues" rel="noopener noreferrer">Public project feedback ↗</a></div><div><p>© 2026 Cowlsly. No analytics, cookies, accounts or payment collection on this site. Audio is off until you enable it. Sound and motion choices stay in this browser session only.</p><p>Acknowledgements page · 26 October 2026</p></div></div></footer>
+</body>
+</html>
